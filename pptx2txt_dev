@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eu -o pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly SCRIPT_DIR
+
+docker container run \
+  --name pptx2txt_dubug$$ \
+  -it \
+  --rm \
+  -u "$(id -u):$(id -g)" \
+  -v "$PWD":/work \
+  -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
+  --entrypoint /bin/bash \
+  shakiyam/pptx2txt "$@"
