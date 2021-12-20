@@ -8,7 +8,7 @@ ALL_TARGETS := $(shell egrep -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://')
 
 .PHONY: $(ALL_TARGETS)
 
-all: shellcheck shfmt hadolint flake8 update_requirements build ## Lint, update requirements.txt, and build
+all: shellcheck shfmt hadolint flake8 update_requirements build test ## Lint, update requirements.txt, build, and test
 	@:
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
@@ -36,6 +36,11 @@ shellcheck: ## Lint shell scripts
 shfmt: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/shfmt.sh -l -d -i 2 -ci -bn -kp pptx2txt pptx2txt_dev test/*.sh tools/*.sh
+
+test: ## Test pptx2txt
+	@echo -e "\033[36m$@\033[0m"
+	@./test/run.sh
+	@./test/clean.sh
 
 update_requirements: ## Update requirements.txt
 	@echo -e "\033[36m$@\033[0m"
