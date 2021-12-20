@@ -14,7 +14,7 @@ def log(message):
     print(f'{timestamp} {message}', file=sys.stderr)
 
 
-def treatShape(shape):
+def treat_shape(shape):
     lines = []
     if shape.has_text_frame:
         for paragraph in shape.text_frame.paragraphs:
@@ -29,7 +29,7 @@ def treatShape(shape):
                     lines.append(stripped)
     elif isinstance(shape, GroupShape):
         for item in shape.shapes:
-            lines += treatShape(item)
+            lines += treat_shape(item)
     return lines
 
 
@@ -46,7 +46,7 @@ for file in sys.argv[1:]:
     for i, slide in enumerate(presentation.slides):
         lines.append(f'--- Slide {i + 1} ---')
         for shape in slide.shapes:
-            lines += treatShape(shape)
+            lines += treat_shape(shape)
 
     with codecs.open(textfile, 'w', 'utf-8') as f:
         for line in lines:
