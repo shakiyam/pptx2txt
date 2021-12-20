@@ -31,11 +31,11 @@ help: ## Print this help
 
 shellcheck: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/shellcheck.sh pptx2txt pptx2txt_dev tools/*.sh
+	@./tools/shellcheck.sh pptx2txt pptx2txt_dev test/*.sh tools/*.sh
 
 shfmt: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/shfmt.sh -l -d -i 2 -ci -bn -kp pptx2txt pptx2txt_dev tools/*.sh
+	@./tools/shfmt.sh -l -d -i 2 -ci -bn -kp pptx2txt pptx2txt_dev test/*.sh tools/*.sh
 
 update_requirements: ## Update requirements.txt
 	@echo -e "\033[36m$@\033[0m"
