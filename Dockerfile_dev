@@ -1,0 +1,6 @@
+FROM python:3.10-slim-bullseye
+COPY requirements_dev.txt /requirements_dev.txt
+RUN pip install --no-cache-dir -r /requirements_dev.txt
+COPY pptx2txt.py /pptx2txt.py
+WORKDIR /work
+ENTRYPOINT ["/bin/sh"]
