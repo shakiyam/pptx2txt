@@ -7,7 +7,7 @@ from datetime import datetime
 from pptx import Presentation
 from pptx.shapes.group import GroupShape
 
-version = '2021-05-27'
+version = '2021-12-20'
 
 
 def log(message):
