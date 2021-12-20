@@ -1,4 +1,5 @@
 import codecs
+import collections.abc  # noqa: F401
 import os.path
 import sys
 from datetime import datetime
