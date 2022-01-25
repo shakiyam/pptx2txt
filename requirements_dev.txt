@@ -10,7 +10,7 @@ jedi==0.18.1
     # via ptpython
 lxml==4.7.1
     # via python-pptx
-mypy==0.930
+mypy==0.931
     # via -r requirements_dev.in
 mypy-extensions==0.4.3
     # via mypy
@@ -22,7 +22,7 @@ prompt-toolkit==3.0.24
     # via ptpython
 ptpython==3.0.20
     # via -r requirements_dev.in
-pygments==2.11.1
+pygments==2.11.2
     # via ptpython
 python-pptx==0.6.21
     # via -r requirements_dev.in
