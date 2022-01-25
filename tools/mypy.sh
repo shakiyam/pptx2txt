@@ -9,26 +9,26 @@ IMAGE_NAME="$1"
 readonly IMAGE_NAME
 shift
 
-if [[ $(command -v podman) ]]; then
-  podman container run \
-    --name mypy$$ \
-    -t \
-    --rm \
-    --security-opt label=disable \
-    -v "$PWD":/work:ro \
-    -v "$PWD"/.mypy_cache:/work/.mypy_cache \
-    -w /work \
-    --entrypoint /usr/local/bin/mypy \
-    "$IMAGE_NAME" "$@"
-else
+if [[ $(command -v docker) ]]; then
   docker container run \
+    --entrypoint /usr/local/bin/mypy \
     --name mypy$$ \
-    -t \
     --rm \
+    -t \
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/work:ro \
     -v "$PWD"/.mypy_cache:/work/.mypy_cache \
     -w /work \
+    "$IMAGE_NAME" "$@"
+else
+  podman container run \
     --entrypoint /usr/local/bin/mypy \
+    --name mypy$$ \
+    --rm \
+    --security-opt label=disable \
+    -t \
+    -v "$PWD":/work:ro \
+    -v "$PWD"/.mypy_cache:/work/.mypy_cache \
+    -w /work \
     "$IMAGE_NAME" "$@"
 fi

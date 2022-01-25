@@ -18,7 +18,7 @@ esac
 readonly IMAGE_NAME
 readonly DOCKERFILE
 
-DOCKER=$(command -v podman || command -v docker)
+DOCKER=$(command -v docker || command -v podman)
 readonly DOCKER
 CURRENT_IMAGE="$($DOCKER image ls -q "$IMAGE_NAME":latest)"
 readonly CURRENT_IMAGE

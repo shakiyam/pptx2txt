@@ -13,11 +13,11 @@ all: shellcheck shfmt hadolint flake8 update_requirements_dev build_dev mypy upd
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/build.sh shakiyam/pptx2txt Dockerfile
+	@./tools/build.sh docker.io/shakiyam/pptx2txt Dockerfile
 
 build_dev: ## Build image 'shakiyam/pptx2txt_dev' from Dockerfile_dev
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/build.sh shakiyam/pptx2txt_dev Dockerfile_dev
+	@./tools/build.sh docker.io/shakiyam/pptx2txt_dev Dockerfile_dev
 
 flake8: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"

@@ -4,11 +4,22 @@ set -eu -o pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 
-docker container run \
-  --name pptx2txt_dev$$ \
-  -it \
-  --rm \
-  -u "$(id -u):$(id -g)" \
-  -v "$PWD":/work \
-  -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
-  shakiyam/pptx2txt "$@"
+if [[ $(command -v docker) ]]; then
+  docker container run \
+    --name pptx2txt_dev$$ \
+    --rm \
+    -it \
+    -u "$(id -u):$(id -g)" \
+    -v "$PWD":/work \
+    -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
+    docker.io/shakiyam/pptx2txt_dev "$@"
+else
+  podman container run \
+    --name pptx2txt_dev$$ \
+    --rm \
+    --security-opt label=disable \
+    -it \
+    -v "$PWD":/work \
+    -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
+    docker.io/shakiyam/pptx2txt_dev "$@"
+fi

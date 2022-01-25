@@ -1,10 +1,20 @@
 #!/bin/bash
 set -eu -o pipefail
 
-docker container run \
-  --name pptx2txt$$ \
-  -t \
-  --rm \
-  -u "$(id -u):$(id -g)" \
-  -v "$PWD":/work \
-  shakiyam/pptx2txt "$@"
+if [[ $(command -v docker) ]]; then
+  docker container run \
+    --name pptx2txt$$ \
+    --rm \
+    -t \
+    -u "$(id -u):$(id -g)" \
+    -v "$PWD":/work \
+    docker.io/shakiyam/pptx2txt "$@"
+else
+  podman container run \
+    --name pptx2txt$$ \
+    --rm \
+    --security-opt label=disable \
+    -t \
+    -v "$PWD":/work \
+    docker.io/shakiyam/pptx2txt "$@"
+fi

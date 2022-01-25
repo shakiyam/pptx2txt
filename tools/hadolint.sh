@@ -6,7 +6,15 @@ if [[ $(uname -m) == 'aarch64' ]]; then
   exit 0
 fi
 
-if [[ $(command -v podman) ]]; then
+if [[ $(command -v docker) ]]; then
+  docker container run \
+    --name hadolint$$ \
+    --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$PWD":/work:ro \
+    -w /work \
+    docker.io/hadolint/hadolint hadolint "$@"
+else
   podman container run \
     --name hadolint$$ \
     --rm \
@@ -14,12 +22,4 @@ if [[ $(command -v podman) ]]; then
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/hadolint/hadolint hadolint "$@"
-else
-  docker container run \
-    --name hadolint$$ \
-    --rm \
-    -u "$(id -u):$(id -g)" \
-    -v "$PWD":/work:ro \
-    -w /work \
-    hadolint/hadolint hadolint "$@"
 fi
