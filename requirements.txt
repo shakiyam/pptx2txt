@@ -6,7 +6,7 @@
 #
 lxml==4.8.0
     # via python-pptx
-pillow==9.0.1
+pillow==9.1.0
     # via python-pptx
 python-pptx==0.6.21
     # via -r requirements.in
