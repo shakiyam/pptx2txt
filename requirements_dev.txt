@@ -8,9 +8,9 @@ appdirs==1.4.4
     # via ptpython
 jedi==0.18.1
     # via ptpython
-lxml==4.8.0
+lxml==4.9.0
     # via python-pptx
-mypy==0.950
+mypy==0.961
     # via -r requirements_dev.in
 mypy-extensions==0.4.3
     # via mypy
