@@ -1,7 +1,9 @@
 #!/bin/bash
 set -eu -o pipefail
 
-if [[ $(command -v docker) ]]; then
+if [[ $(command -v shfmt) ]]; then
+  shfmt "$@"
+elif [[ $(command -v docker) ]]; then
   docker container run \
     --name shfmt$$ \
     --rm \
@@ -9,7 +11,7 @@ if [[ $(command -v docker) ]]; then
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/mvdan/shfmt:latest "$@"
-else
+elif [[ $(command -v podman) ]]; then
   podman container run \
     --name shfmt$$ \
     --rm \
@@ -17,4 +19,7 @@ else
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/mvdan/shfmt:latest "$@"
+else
+  echo -e "\033[36mshfmt could not be executed.\033[0m"
+  exit 1
 fi

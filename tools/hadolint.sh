@@ -1,12 +1,9 @@
 #!/bin/bash
 set -eu -o pipefail
 
-if [[ $(uname -m) == 'aarch64' ]]; then
-  echo 'hadolint is not yet supported on ARM.'
-  exit 0
-fi
-
-if [[ $(command -v docker) ]]; then
+if [[ $(command -v hadolint) ]]; then
+  hadolint "$@"
+elif [[ $(command -v docker) ]]; then
   docker container run \
     --name hadolint$$ \
     --rm \
@@ -14,7 +11,7 @@ if [[ $(command -v docker) ]]; then
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/hadolint/hadolint hadolint "$@"
-else
+elif [[ $(command -v podman) ]]; then
   podman container run \
     --name hadolint$$ \
     --rm \
@@ -22,4 +19,7 @@ else
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/hadolint/hadolint hadolint "$@"
+else
+  echo -e "\033[36hadolint could not be executed.\033[0m"
+  exit 1
 fi
