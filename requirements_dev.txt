@@ -10,7 +10,7 @@ jedi==0.18.1
     # via ptpython
 lxml==4.9.1
     # via python-pptx
-mypy==0.961
+mypy==0.981
     # via -r requirements_dev.in
 mypy-extensions==0.4.3
     # via mypy
@@ -18,11 +18,11 @@ parso==0.8.3
     # via jedi
 pillow==9.2.0
     # via python-pptx
-prompt-toolkit==3.0.30
+prompt-toolkit==3.0.31
     # via ptpython
 ptpython==3.0.20
     # via -r requirements_dev.in
-pygments==2.12.0
+pygments==2.13.0
     # via ptpython
 python-pptx==0.6.21
     # via -r requirements_dev.in
