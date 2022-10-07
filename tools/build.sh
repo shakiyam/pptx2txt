@@ -1,6 +1,16 @@
 #!/bin/bash
 set -eu -o pipefail
 
+if [[ $(command -v docker) ]]; then
+  DOCKER=docker
+elif [[ $(command -v podman) ]]; then
+  DOCKER=podman
+else
+  echo 'Neither docker nor podman is installed.'
+  exit 1
+fi
+readonly DOCKER
+
 case "$#" in
   1)
     IMAGE_NAME="$1"
@@ -18,8 +28,6 @@ esac
 readonly IMAGE_NAME
 readonly DOCKERFILE
 
-DOCKER=$(command -v docker || command -v podman)
-readonly DOCKER
 CURRENT_IMAGE="$($DOCKER image inspect -f "{{.Id}}" "$IMAGE_NAME":latest || :)"
 readonly CURRENT_IMAGE
 $DOCKER image build -f "$DOCKERFILE" -t "$IMAGE_NAME" .

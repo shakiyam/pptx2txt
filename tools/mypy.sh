@@ -20,7 +20,7 @@ if [[ $(command -v docker) ]]; then
     -v "$PWD"/.mypy_cache:/work/.mypy_cache \
     -w /work \
     "$IMAGE_NAME" "$@"
-else
+elif [[ $(command -v podman) ]]; then
   podman container run \
     --entrypoint /usr/local/bin/mypy \
     --name mypy$$ \
@@ -31,4 +31,7 @@ else
     -v "$PWD"/.mypy_cache:/work/.mypy_cache \
     -w /work \
     "$IMAGE_NAME" "$@"
+else
+  echo 'Neither docker nor podman is installed.'
+  exit 1
 fi
