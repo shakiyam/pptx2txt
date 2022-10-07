@@ -1,6 +1,11 @@
 #!/bin/bash
 set -eu -o pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly SCRIPT_DIR
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/colored_echo.sh
+
 if [[ $(command -v shfmt) ]]; then
   shfmt "$@"
 elif [[ $(command -v docker) ]]; then
@@ -20,6 +25,6 @@ elif [[ $(command -v podman) ]]; then
     -w /work \
     docker.io/mvdan/shfmt:latest "$@"
 else
-  echo -e "\033[36mshfmt could not be executed.\033[0m"
+  echo_error 'shfmt could not be executed.'
   exit 1
 fi

@@ -1,6 +1,11 @@
 #!/bin/bash
 set -eu -o pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly SCRIPT_DIR
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/colored_echo.sh
+
 if [[ $(command -v shellcheck) ]]; then
   shellcheck "$@"
 elif [[ $(command -v docker) ]]; then
@@ -18,6 +23,6 @@ elif [[ $(command -v podman) ]]; then
     -v "$PWD":/mnt:ro \
     docker.io/koalaman/shellcheck:stable "$@"
 else
-  echo -e "\033[36mshellcheck could not be executed.\033[0m"
+  echo_error 'shellcheck could not be executed.'
   exit 1
 fi

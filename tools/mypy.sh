@@ -1,8 +1,13 @@
 #!/bin/bash
 set -eu -o pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly SCRIPT_DIR
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/colored_echo.sh
+
 if [[ $# -eq 0 ]]; then
-  echo "Usage: mypy.sh image_name [options ...] [files ...]"
+  echo_error 'Usage: mypy.sh image_name [options ...] [files ...]'
   exit 1
 fi
 IMAGE_NAME="$1"
@@ -32,6 +37,6 @@ elif [[ $(command -v podman) ]]; then
     -w /work \
     "$IMAGE_NAME" "$@"
 else
-  echo 'Neither docker nor podman is installed.'
+  echo_error 'Neither docker nor podman is installed.'
   exit 1
 fi
