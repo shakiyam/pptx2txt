@@ -1,4 +1,4 @@
-FROM docker.io/python:3.10-slim-bullseye
+FROM docker.io/python:3.11-slim-bullseye
 COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
 COPY pptx2txt.py /pptx2txt.py
