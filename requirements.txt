@@ -4,7 +4,7 @@
 #
 #    pip-compile
 #
-lxml==4.9.1
+lxml==4.9.2
     # via python-pptx
 pillow==9.3.0
     # via python-pptx
