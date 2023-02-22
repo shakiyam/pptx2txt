@@ -14,6 +14,7 @@ IMAGE_NAME="$1"
 readonly IMAGE_NAME
 shift
 
+[[ -d "$PWD"/.mypy_cache ]] || mkdir "$PWD"/.mypy_cache
 if [[ $(command -v docker) ]]; then
   docker container run \
     --entrypoint /usr/local/bin/mypy \
