@@ -15,7 +15,7 @@ elif [[ $(command -v docker) ]]; then
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/work:ro \
     -w /work \
-    docker.io/hadolint/hadolint hadolint "$@"
+    ghcr.io/hadolint/hadolint hadolint "$@"
 elif [[ $(command -v podman) ]]; then
   podman container run \
     --name hadolint$$ \
@@ -23,7 +23,7 @@ elif [[ $(command -v podman) ]]; then
     --security-opt label=disable \
     -v "$PWD":/work:ro \
     -w /work \
-    docker.io/hadolint/hadolint hadolint "$@"
+    ghcr.io/hadolint/hadolint hadolint "$@"
 else
   echo_error 'hadolint could not be executed.'
   exit 1
