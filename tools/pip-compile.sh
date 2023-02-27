@@ -14,7 +14,7 @@ if [[ $(command -v docker) ]]; then
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/work \
     -w /work \
-    docker.io/shakiyam/pip-tools pip-compile "$@"
+    ghcr.io/shakiyam/pip-tools pip-compile "$@"
 elif [[ $(command -v podman) ]]; then
   podman container run \
     --name pip-compile$$ \
@@ -23,7 +23,7 @@ elif [[ $(command -v podman) ]]; then
     -e HOME=/tmp \
     -v "$PWD":/work \
     -w /work \
-    docker.io/shakiyam/pip-tools pip-compile "$@"
+    ghcr.io/shakiyam/pip-tools pip-compile "$@"
 else
   echo_error 'Neither docker nor podman is installed.'
   exit 1
