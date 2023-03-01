@@ -12,7 +12,7 @@ if [[ $(command -v docker) ]]; then
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/work \
     -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
-    docker.io/shakiyam/pptx2txt_dev "$@"
+    ghcr.io/shakiyam/pptx2txt_dev "$@"
 else
   podman container run \
     --name pptx2txt_dev$$ \
@@ -21,5 +21,5 @@ else
     -it \
     -v "$PWD":/work \
     -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
-    docker.io/shakiyam/pptx2txt_dev "$@"
+    ghcr.io/shakiyam/pptx2txt_dev "$@"
 fi
