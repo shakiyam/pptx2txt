@@ -35,7 +35,7 @@ help: ## Print this help
 
 mypy: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/mypy.sh shakiyam/pptx2txt_dev --ignore-missing-imports pptx2txt.py
+	@./tools/mypy.sh ghcr.io/shakiyam/pptx2txt_dev --ignore-missing-imports pptx2txt.py
 
 shellcheck: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
