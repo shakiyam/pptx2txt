@@ -16,7 +16,7 @@ Usage
 -----
 
 ```console
-pyton pptx2txt.py PPT_FILE...
+python pptx2txt.py PPT_FILE...
 ```
 
 Tips
@@ -26,7 +26,7 @@ If you are using Windows, you may find it useful to add a shortcut to SendTo by 
 
 ```console
 pip install pywin32
-pyton create_sendto_shortcut.py
+python create_sendto_shortcut.py
 ```
 
 Author
