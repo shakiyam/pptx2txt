@@ -1,21 +1,21 @@
 import codecs
-import collections.abc  # noqa: F401
 import os.path
 import sys
 from datetime import datetime
 
 from pptx import Presentation
+from pptx.shapes.base import BaseShape
 from pptx.shapes.group import GroupShape
 
-version = '2021-12-20'
+version = '2023-03-27'
 
 
-def log(message):
+def log(message: str) -> None:
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f'{timestamp} {message}', file=sys.stderr)
 
 
-def treat_shape(shape):
+def shape2txt(shape: BaseShape) -> list[str]:
     lines = []
     if shape.has_text_frame:
         for paragraph in shape.text_frame.paragraphs:
@@ -30,7 +30,7 @@ def treat_shape(shape):
                     lines.append(stripped)
     elif isinstance(shape, GroupShape):
         for item in shape.shapes:
-            lines += treat_shape(item)
+            lines += shape2txt(item)
     return lines
 
 
@@ -47,7 +47,7 @@ for file in sys.argv[1:]:
     for i, slide in enumerate(presentation.slides):
         lines.append(f'--- Slide {i + 1} ---')
         for shape in slide.shapes:
-            lines += treat_shape(shape)
+            lines += shape2txt(shape)
 
     with codecs.open(textfile, 'w', 'utf-8') as f:
         for line in lines:
