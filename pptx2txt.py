@@ -34,7 +34,7 @@ def treat_shape(shape):
     return lines
 
 
-log(f'ppt2txt - version {version} by Shinichi Akiyama')
+log(f'pptx2txt - version {version} by Shinichi Akiyama')
 
 for file in sys.argv[1:]:
     base, ext = os.path.splitext(file)
