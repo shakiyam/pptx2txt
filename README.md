@@ -16,7 +16,7 @@ Usage
 -----
 
 ```console
-python pptx2txt.py PPT_FILE...
+python pptx2txt.py [files ...]
 ```
 
 Tips
