@@ -15,9 +15,9 @@ build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/build.sh ghcr.io/shakiyam/pptx2txt Dockerfile
 
-build_dev: ## Build image 'shakiyam/pptx2txt_dev' from Dockerfile_dev
+build_dev: ## Build image 'shakiyam/pptx2txt_dev' from Dockerfile.dev
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/build.sh ghcr.io/shakiyam/pptx2txt_dev Dockerfile_dev
+	@./tools/build.sh ghcr.io/shakiyam/pptx2txt_dev Dockerfile.dev
 
 flake8: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
@@ -25,7 +25,7 @@ flake8: ## Lint Python code
 
 hadolint: ## Lint Dockerfile
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/hadolint.sh Dockerfile Dockerfile_dev
+	@./tools/hadolint.sh Dockerfile Dockerfile.dev
 
 help: ## Print this help
 	@echo 'Usage: make [target]'
