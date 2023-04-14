@@ -1,0 +1,19 @@
+name: Check for updates
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  check_for_library_updates:
+    name: Check for library updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run pip-compile --upgrade
+        run: ./tools/pip-compile.sh requirements_dev.in --output-file requirements_dev.txt --upgrade
+      - name: Run check_for_file_updates.sh
+        run: ./tools/check_for_file_updates.sh requirements_dev.txt
