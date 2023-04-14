@@ -8,8 +8,7 @@ ALL_TARGETS := $(shell egrep -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://')
 
 .PHONY: $(ALL_TARGETS)
 
-all: shellcheck shfmt hadolint flake8 update_requirements_dev build_dev mypy update_requirements build test ## Lint, update requirements.txt, build, and test
-	@:
+all: lint update_requirements_dev build_dev mypy update_requirements build test ## Lint, update requirements.txt, build, and test
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
@@ -32,6 +31,8 @@ help: ## Print this help
 	@echo ''
 	@echo 'Targets:'
 	@awk 'BEGIN {FS = ":.*?## "} /^[0-9A-Za-z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+lint: flake8 hadolint shellcheck shfmt ## Lint for all dependencies
 
 mypy: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
