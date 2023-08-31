@@ -1,6 +1,4 @@
 import codecs
-import collections.abc  # noqa: F401
-# https://github.com/python/cpython/issues/89934
 import os.path
 import sys
 from datetime import datetime
@@ -9,7 +7,7 @@ from pptx import Presentation
 from pptx.shapes.base import BaseShape
 from pptx.shapes.group import GroupShape
 
-version = '2023-05-16'
+version = '2023-08-31'
 
 
 def log(message: str) -> None:
