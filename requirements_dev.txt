@@ -16,7 +16,7 @@ mypy-extensions==1.0.0
     # via mypy
 parso==0.8.3
     # via jedi
-pillow==9.5.0
+pillow==10.1.0
     # via python-pptx
 prompt-toolkit==3.0.39
     # via ptpython
@@ -24,7 +24,7 @@ ptpython==3.0.23
     # via -r requirements_dev.in
 pygments==2.16.1
     # via ptpython
-python-pptx==0.6.22
+python-pptx==0.6.23
     # via -r requirements_dev.in
 tomli==2.0.1
     # via mypy
