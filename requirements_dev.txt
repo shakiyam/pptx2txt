@@ -20,7 +20,7 @@ pillow==10.1.0
     # via python-pptx
 prompt-toolkit==3.0.43
     # via ptpython
-ptpython==3.0.24
+ptpython==3.0.25
     # via -r requirements_dev.in
 pygments==2.17.2
     # via ptpython
