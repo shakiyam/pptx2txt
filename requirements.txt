@@ -4,9 +4,9 @@
 #
 #    pip-compile
 #
-lxml==5.0.0
+lxml==5.0.1
     # via python-pptx
-pillow==10.1.0
+pillow==10.2.0
     # via python-pptx
 python-pptx==0.6.23
     # via -r requirements.in

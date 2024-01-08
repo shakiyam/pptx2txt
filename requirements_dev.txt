@@ -8,7 +8,7 @@ appdirs==1.4.4
     # via ptpython
 jedi==0.19.1
     # via ptpython
-lxml==5.0.0
+lxml==5.0.1
     # via python-pptx
 mypy==1.8.0
     # via -r requirements_dev.in
@@ -16,7 +16,7 @@ mypy-extensions==1.0.0
     # via mypy
 parso==0.8.3
     # via jedi
-pillow==10.1.0
+pillow==10.2.0
     # via python-pptx
 prompt-toolkit==3.0.43
     # via ptpython
@@ -30,7 +30,7 @@ tomli==2.0.1
     # via mypy
 typing-extensions==4.9.0
     # via mypy
-wcwidth==0.2.12
+wcwidth==0.2.13
     # via prompt-toolkit
 xlsxwriter==3.1.9
     # via python-pptx
