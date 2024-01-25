@@ -6,16 +6,16 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if [[ $(command -v shellcheck) ]]; then
+if command -v shellcheck &>/dev/null; then
   shellcheck "$@"
-elif [[ $(command -v docker) ]]; then
+elif command -v docker &>/dev/null; then
   docker container run \
     --name shellcheck$$ \
     --rm \
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/mnt:ro \
     docker.io/koalaman/shellcheck:stable "$@"
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   podman container run \
     --name shellcheck$$ \
     --rm \

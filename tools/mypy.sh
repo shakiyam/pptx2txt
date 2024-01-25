@@ -15,7 +15,7 @@ readonly IMAGE_NAME
 shift
 
 [[ -d "$PWD"/.mypy_cache ]] || mkdir "$PWD"/.mypy_cache
-if [[ $(command -v docker) ]]; then
+if command -v docker &>/dev/null; then
   docker container run \
     --entrypoint /usr/local/bin/mypy \
     --name mypy$$ \
@@ -26,7 +26,7 @@ if [[ $(command -v docker) ]]; then
     -v "$PWD"/.mypy_cache:/work/.mypy_cache \
     -w /work \
     "$IMAGE_NAME" "$@"
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   podman container run \
     --entrypoint /usr/local/bin/mypy \
     --name mypy$$ \

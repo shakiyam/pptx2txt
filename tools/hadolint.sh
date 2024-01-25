@@ -6,9 +6,9 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if [[ $(command -v hadolint) ]]; then
+if command -v hadolint &>/dev/null; then
   hadolint "$@"
-elif [[ $(command -v docker) ]]; then
+elif command -v docker &>/dev/null; then
   docker container run \
     --name hadolint$$ \
     --rm \
@@ -16,7 +16,7 @@ elif [[ $(command -v docker) ]]; then
     -v "$PWD":/work:ro \
     -w /work \
     ghcr.io/hadolint/hadolint hadolint "$@"
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   podman container run \
     --name hadolint$$ \
     --rm \

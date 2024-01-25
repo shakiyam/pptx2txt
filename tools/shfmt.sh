@@ -6,9 +6,9 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if [[ $(command -v shfmt) ]]; then
+if command -v shfmt &>/dev/null; then
   shfmt "$@"
-elif [[ $(command -v docker) ]]; then
+elif command -v docker &>/dev/null; then
   docker container run \
     --name shfmt$$ \
     --rm \
@@ -16,7 +16,7 @@ elif [[ $(command -v docker) ]]; then
     -v "$PWD":/work:ro \
     -w /work \
     docker.io/mvdan/shfmt:latest "$@"
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   podman container run \
     --name shfmt$$ \
     --rm \

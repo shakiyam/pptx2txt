@@ -6,9 +6,9 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if [[ $(command -v docker) ]]; then
+if command -v docker &>/dev/null; then
   DOCKER=docker
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   DOCKER=podman
 else
   echo_error 'Neither docker nor podman is installed.'

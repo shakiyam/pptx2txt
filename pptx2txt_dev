@@ -4,7 +4,7 @@ set -eu -o pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 
-if [[ $(command -v docker) ]]; then
+if command -v docker &>/dev/null; then
   docker container run \
     --name pptx2txt_dev$$ \
     --rm \

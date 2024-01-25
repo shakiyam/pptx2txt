@@ -6,7 +6,7 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if [[ $(command -v docker) ]]; then
+if command -v docker &>/dev/null; then
   docker container run \
     --name pip-compile$$ \
     --rm \
@@ -15,7 +15,7 @@ if [[ $(command -v docker) ]]; then
     -v "$PWD":/work \
     -w /work \
     ghcr.io/shakiyam/pip-tools pip-compile "$@"
-elif [[ $(command -v podman) ]]; then
+elif command -v podman &>/dev/null; then
   podman container run \
     --name pip-compile$$ \
     --rm \
