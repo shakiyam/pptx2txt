@@ -32,5 +32,5 @@ typing-extensions==4.9.0
     # via mypy
 wcwidth==0.2.13
     # via prompt-toolkit
-xlsxwriter==3.1.9
+xlsxwriter==3.2.0
     # via python-pptx
