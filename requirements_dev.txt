@@ -28,7 +28,7 @@ python-pptx==0.6.23
     # via -r requirements_dev.in
 tomli==2.0.1
     # via mypy
-typing-extensions==4.9.0
+typing-extensions==4.10.0
     # via mypy
 wcwidth==0.2.13
     # via prompt-toolkit
