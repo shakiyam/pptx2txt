@@ -14,7 +14,7 @@ mypy==1.9.0
     # via -r requirements_dev.in
 mypy-extensions==1.0.0
     # via mypy
-parso==0.8.3
+parso==0.8.4
     # via jedi
 pillow==10.3.0
     # via python-pptx
@@ -26,7 +26,7 @@ pygments==2.17.2
     # via ptpython
 python-pptx==0.6.23
     # via -r requirements_dev.in
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via mypy
 wcwidth==0.2.13
     # via prompt-toolkit
