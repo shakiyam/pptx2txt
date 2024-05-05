@@ -22,7 +22,7 @@ prompt-toolkit==3.0.43
     # via ptpython
 ptpython==3.0.26
     # via -r requirements_dev.in
-pygments==2.17.2
+pygments==2.18.0
     # via ptpython
 python-pptx==0.6.23
     # via -r requirements_dev.in
