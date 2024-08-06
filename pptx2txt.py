@@ -4,10 +4,12 @@ import sys
 from datetime import datetime
 
 from pptx import Presentation
+from pptx.shapes.autoshape import Shape
 from pptx.shapes.base import BaseShape
+from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
 
-version = '2023-08-31'
+version = '2024-08-06'
 
 
 def log(message: str) -> None:
@@ -17,12 +19,12 @@ def log(message: str) -> None:
 
 def shape2txt(shape: BaseShape) -> list[str]:
     lines = []
-    if shape.has_text_frame:
+    if isinstance(shape, Shape):
         for paragraph in shape.text_frame.paragraphs:
             stripped = paragraph.text.strip()
             if stripped:
                 lines.append(stripped)
-    elif shape.has_table:
+    elif isinstance(shape, GraphicFrame) and shape.has_table:
         for row in shape.table.rows:
             for cell in row.cells:
                 stripped = cell.text.strip()
