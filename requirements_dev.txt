@@ -24,7 +24,7 @@ ptpython==3.0.29
     # via -r requirements_dev.in
 pygments==2.18.0
     # via ptpython
-python-pptx==1.0.1
+python-pptx==1.0.2
     # via -r requirements_dev.in
 typing-extensions==4.12.2
     # via
