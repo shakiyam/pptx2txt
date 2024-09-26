@@ -18,7 +18,7 @@ parso==0.8.4
     # via jedi
 pillow==10.4.0
     # via python-pptx
-prompt-toolkit==3.0.47
+prompt-toolkit==3.0.48
     # via ptpython
 ptpython==3.0.29
     # via -r requirements_dev.in
