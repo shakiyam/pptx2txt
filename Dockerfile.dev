@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/os/oraclelinux:9-slim
+FROM ghcr.io/oracle/oraclelinux:9-slim
 # hadolint ignore=DL3041
 RUN microdnf -y install python3.12 python3.12-pip \
   && microdnf clean all \
