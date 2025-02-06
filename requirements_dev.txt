@@ -10,7 +10,7 @@ jedi==0.19.2
     # via ptpython
 lxml==5.3.0
     # via python-pptx
-mypy==1.14.1
+mypy==1.15.0
     # via -r requirements_dev.in
 mypy-extensions==1.0.0
     # via mypy
