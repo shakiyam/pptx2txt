@@ -26,7 +26,7 @@ pygments==2.19.1
     # via ptpython
 python-pptx==1.0.2
     # via -r requirements_dev.in
-typing-extensions==4.12.2
+typing-extensions==4.13.0
     # via
     #   mypy
     #   python-pptx
