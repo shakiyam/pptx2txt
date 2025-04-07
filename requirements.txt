@@ -4,13 +4,13 @@
 #
 #    pip-compile --strip-extras
 #
-lxml==5.3.1
+lxml==5.3.2
     # via python-pptx
 pillow==11.1.0
     # via python-pptx
 python-pptx==1.0.2
     # via -r requirements.in
-typing-extensions==4.13.0
+typing-extensions==4.13.1
     # via python-pptx
 xlsxwriter==3.2.2
     # via python-pptx
