@@ -16,7 +16,7 @@ mypy-extensions==1.0.0
     # via mypy
 parso==0.8.4
     # via jedi
-pillow==11.1.0
+pillow==11.2.1
     # via python-pptx
 prompt-toolkit==3.0.50
     # via ptpython
