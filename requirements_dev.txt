@@ -10,12 +10,14 @@ jedi==0.19.2
     # via ptpython
 lxml==5.4.0
     # via python-pptx
-mypy==1.15.0
+mypy==1.16.0
     # via -r requirements_dev.in
 mypy-extensions==1.1.0
     # via mypy
 parso==0.8.4
     # via jedi
+pathspec==0.12.1
+    # via mypy
 pillow==11.2.1
     # via python-pptx
 prompt-toolkit==3.0.51
