@@ -12,5 +12,5 @@ python-pptx==1.0.2
     # via -r requirements.in
 typing-extensions==4.14.0
     # via python-pptx
-xlsxwriter==3.2.3
+xlsxwriter==3.2.5
     # via python-pptx

@@ -34,5 +34,5 @@ typing-extensions==4.14.0
     #   python-pptx
 wcwidth==0.2.13
     # via prompt-toolkit
-xlsxwriter==3.2.3
+xlsxwriter==3.2.5
     # via python-pptx
