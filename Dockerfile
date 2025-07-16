@@ -8,4 +8,6 @@ COPY requirements.txt /requirements.txt
 RUN python3.12 -m pip install --no-cache-dir --upgrade pip && python3.12 -m pip install --no-cache-dir -r /requirements.txt
 COPY pptx2txt.py /pptx2txt.py
 WORKDIR /work
+ARG SOURCE_COMMIT
+ENV SOURCE_COMMIT=$SOURCE_COMMIT
 ENTRYPOINT ["python3.12", "/pptx2txt.py"]
