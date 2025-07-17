@@ -51,8 +51,8 @@ test: ## Test pptx2txt
 
 update_requirements: ## Update requirements.txt
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/pip-compile.sh --upgrade --strip-extras
+	@./tools/uv.sh pip compile --upgrade --strip-extras --output-file requirements.txt requirements.in
 
 update_requirements_dev: ## Update requirements_dev.txt
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/pip-compile.sh requirements_dev.in --output-file requirements_dev.txt --upgrade --strip-extras
+	@./tools/uv.sh pip compile --upgrade --strip-extras --output-file requirements_dev.txt requirements_dev.in

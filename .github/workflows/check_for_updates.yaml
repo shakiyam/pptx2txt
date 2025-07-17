@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Run pip-compile --upgrade
-        run: ./tools/pip-compile.sh requirements_dev.in --output-file requirements_dev.txt --upgrade --strip-extras
+      - name: Run uv pip compile --upgrade
+        run: ./tools/uv.sh pip compile --upgrade --strip-extras --output-file requirements_dev.txt requirements_dev.in
       - name: Run check_for_file_updates.sh
         run: ./tools/check_for_file_updates.sh requirements_dev.txt
