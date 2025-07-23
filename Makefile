@@ -46,8 +46,9 @@ shfmt: ## Lint shell scripts
 
 test: ## Test pptx2txt
 	@echo -e "\033[36m$@\033[0m"
-	@./test/run.sh
+	@./test/test_basic.sh
 	@./test/clean.sh
+	@./test/test_error_scenarios.sh
 
 update_requirements: ## Update requirements.txt
 	@echo -e "\033[36m$@\033[0m"

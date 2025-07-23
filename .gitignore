@@ -1,2 +1,2 @@
 .mypy_cache
-test/*.txt
+test/sample*.txt
