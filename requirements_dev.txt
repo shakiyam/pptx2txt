@@ -16,9 +16,9 @@ pathspec==0.12.1
     # via mypy
 pillow==11.3.0
     # via python-pptx
-prompt-toolkit==3.0.51
+prompt-toolkit==3.0.52
     # via ptpython
-ptpython==3.0.30
+ptpython==3.0.31
     # via -r requirements_dev.in
 pygments==2.19.2
     # via ptpython
