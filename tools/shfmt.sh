@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu -o pipefail
+set -Eeu -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
@@ -10,7 +10,7 @@ if command -v shfmt &>/dev/null; then
   shfmt "$@"
 elif command -v docker &>/dev/null; then
   docker container run \
-    --name shfmt$$ \
+    --name "shfmt_$(uuidgen | head -c8)" \
     --rm \
     -u "$(id -u):$(id -g)" \
     -v "$PWD":/work:ro \
@@ -18,7 +18,7 @@ elif command -v docker &>/dev/null; then
     docker.io/mvdan/shfmt:latest "$@"
 elif command -v podman &>/dev/null; then
   podman container run \
-    --name shfmt$$ \
+    --name "shfmt_$(uuidgen | head -c8)" \
     --rm \
     --security-opt label=disable \
     -v "$PWD":/work:ro \

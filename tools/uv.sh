@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu -o pipefail
+set -Eeu -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
@@ -10,7 +10,7 @@ readonly UV_IMAGE="ghcr.io/astral-sh/uv:python3.12-bookworm-slim"
 
 if command -v docker &>/dev/null; then
   docker container run \
-    --name uv$$ \
+    --name "uv_$(uuidgen | head -c8)" \
     --rm \
     -e HOME=/tmp \
     -u "$(id -u):$(id -g)" \
@@ -19,7 +19,7 @@ if command -v docker &>/dev/null; then
     "$UV_IMAGE" uv "$@"
 elif command -v podman &>/dev/null; then
   podman container run \
-    --name uv$$ \
+    --name "uv_$(uuidgen | head -c8)" \
     --rm \
     --security-opt label=disable \
     -e HOME=/tmp \
