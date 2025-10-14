@@ -6,7 +6,7 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-readonly UV_IMAGE="ghcr.io/astral-sh/uv:python3.12-bookworm-slim"
+readonly UV_IMAGE="ghcr.io/astral-sh/uv:python3.14-bookworm-slim"
 
 if command -v docker &>/dev/null; then
   docker container run \
