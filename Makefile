@@ -42,7 +42,7 @@ shellcheck: ## Lint shell scripts
 
 shfmt: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/shfmt.sh -l -d -i 2 -ci -bn -kp pptx2txt pptx2txt_dev test/*.sh tools/*.sh
+	@./tools/shfmt.sh -l -d -i 2 -ci -bn pptx2txt pptx2txt_dev test/*.sh tools/*.sh
 
 test: ## Test pptx2txt
 	@echo -e "\033[36m$@\033[0m"
