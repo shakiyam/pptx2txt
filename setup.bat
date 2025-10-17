@@ -1,1 +1,1 @@
-uv pip install --system --upgrade python-pptx pywin32
+py -m pip install --upgrade python-pptx pywin32

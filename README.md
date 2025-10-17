@@ -6,41 +6,44 @@ pptx2txt is a tool that converts PowerPoint `.pptx` format to text.
 Requirements
 ------------
 
-pptx2txt requires python-pptx. Install it using [uv](https://github.com/astral-sh/uv), a fast Python package manager:
+pptx2txt require python-pptx.
+
+Windows:
 
 ```console
-# System-wide installation (recommended)
-uv pip install --system python-pptx
-
-# For development with virtual environment:
-uv venv
-# Windows: .venv\Scripts\activate
-# Linux/macOS: source .venv/bin/activate
-uv pip install python-pptx
+py -m pip install python-pptx
 ```
 
-**Note**: System-wide installation may require administrator privileges.
+Linux/macOS:
+
+```console
+python3 -m pip install python-pptx
+```
 
 Usage
 -----
 
 To convert a `.pptx` files to text, run the following command:
 
-```console
-# Windows
-py pptx2txt.py [files ...]
+Windows:
 
-# Linux/macOS
+```console
+py pptx2txt.py [files ...]
+```
+
+Linux/macOS:
+
+```console
 python3 pptx2txt.py [files ...]
 ```
 
 Tips
 ----
 
-If you are using Windows, you can make a shortcut to the "SendTo" menu by running the following command:
+If you are using Windows, you may find it useful to add a shortcut to SendTo by doing the following
 
 ```console
-uv pip install --system pywin32
+py -m pip install pywin32
 py create_sendto_shortcut.py
 ```
 
