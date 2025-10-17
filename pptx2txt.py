@@ -10,7 +10,7 @@ from pptx.shapes.base import BaseShape
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
 
-version = '2025-07-23'
+version = '2025-10-17'
 
 
 def log(message: str) -> None:
@@ -18,23 +18,23 @@ def log(message: str) -> None:
     print(f'{timestamp} {message}', file=sys.stderr)
 
 
-def shape2txt(shape: BaseShape) -> list[str]:
-    lines = []
+def extract_lines_from_shape(shape: BaseShape) -> list[str]:
+    shape_lines = []
     if isinstance(shape, Shape):
         for paragraph in shape.text_frame.paragraphs:
             stripped = paragraph.text.strip()
             if stripped:
-                lines.append(stripped)
+                shape_lines.append(stripped)
     elif isinstance(shape, GraphicFrame) and shape.has_table:
         for row in shape.table.rows:
             for cell in row.cells:
                 stripped = cell.text.strip()
                 if stripped:
-                    lines.append(stripped)
+                    shape_lines.append(stripped)
     elif isinstance(shape, GroupShape):
-        for item in shape.shapes:
-            lines += shape2txt(item)
-    return lines
+        for child_shape in shape.shapes:
+            shape_lines += extract_lines_from_shape(child_shape)
+    return shape_lines
 
 
 log(f'pptx2txt - version {version} by Shinichi Akiyama')
@@ -44,38 +44,36 @@ if len(sys.argv) < 2:
     log('Usage: pptx2txt <file1.pptx> [file2.pptx] ...')
     sys.exit(1)
 
-for file in sys.argv[1:]:
-    # Check if file exists
-    if not os.path.exists(file):
-        log(f'ERROR: File not found: {file}')
+for pptx_file in sys.argv[1:]:
+    if not os.path.exists(pptx_file):
+        log(f'ERROR: File not found: {pptx_file}')
         sys.exit(1)
-
-    base, ext = os.path.splitext(file)
-    textfile = f'{base}.txt'
 
     try:
-        presentation = Presentation(file)
-        log(f'{file} was opened.')
+        presentation = Presentation(pptx_file)
+        log(f'{pptx_file} was opened.')
     except PackageNotFoundError:
-        log(f'ERROR: Invalid PPTX file: {file}')
+        log(f'ERROR: Invalid PPTX file: {pptx_file}')
         sys.exit(1)
     except Exception as e:
-        log(f'ERROR: Failed to open {file}: {str(e)}')
+        log(f'ERROR: Failed to open {pptx_file}: {str(e)}')
         sys.exit(1)
 
     lines = []
-    for i, slide in enumerate(presentation.slides):
-        lines.append(f'--- Slide {i + 1} ---')
+    for slide_index, slide in enumerate(presentation.slides):
+        lines.append(f'--- Slide {slide_index + 1} ---')
         for shape in slide.shapes:
-            lines += shape2txt(shape)
+            lines += extract_lines_from_shape(shape)
 
+    base, _ = os.path.splitext(pptx_file)
+    text_file = f'{base}.txt'
     try:
-        with codecs.open(textfile, 'w', 'utf-8') as f:
+        with codecs.open(text_file, 'w', 'utf-8') as f:
             for line in lines:
                 print(line, file=f)
-        log(f'{textfile} was saved.')
+        log(f'{text_file} was saved.')
     except (IOError, OSError) as e:
-        log(f'ERROR: Cannot write to {textfile}: {str(e)}')
+        log(f'ERROR: Cannot write to {text_file}: {str(e)}')
         sys.exit(1)
 
 log('All files were processed.')
