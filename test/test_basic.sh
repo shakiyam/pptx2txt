@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu -o pipefail
+set -Eeu -o pipefail
 
 cd "$(dirname "$0")"
 ../pptx2txt sample1.pptx sample2.pptx sample3.pptx
