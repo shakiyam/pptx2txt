@@ -6,4 +6,4 @@ COPY pptx2txt.py /pptx2txt.py
 WORKDIR /work
 ARG SOURCE_COMMIT
 ENV SOURCE_COMMIT=$SOURCE_COMMIT
-ENTRYPOINT ["python3.14", "/pptx2txt.py"]
+ENTRYPOINT ["python3", "/pptx2txt.py"]
