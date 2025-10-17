@@ -6,7 +6,7 @@ pptx2txt is a tool that converts PowerPoint `.pptx` format to text.
 Requirements
 ------------
 
-pptx2txt require python-pptx.
+pptx2txt requires python-pptx.
 
 Windows:
 
@@ -23,7 +23,7 @@ python3 -m pip install python-pptx
 Usage
 -----
 
-To convert a `.pptx` files to text, run the following command:
+To convert `.pptx` files to text, run the following command:
 
 Windows:
 
