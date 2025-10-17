@@ -37,6 +37,8 @@ Linux/macOS:
 python3 pptx2txt.py [files ...]
 ```
 
+The output will be saved as `.txt` files in the same directory as the input files.
+
 Tips
 ----
 
