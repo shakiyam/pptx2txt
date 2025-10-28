@@ -14,6 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run uv pip compile --upgrade
-        run: ./tools/uv.sh pip compile --upgrade --strip-extras --output-file requirements_dev.txt requirements_dev.in
+        run: ./tools/uv.sh pip compile --upgrade --strip-extras --extra dev --output-file requirements_dev.txt pyproject.toml
       - name: Run check_for_file_updates.sh
         run: ./tools/check_for_file_updates.sh requirements_dev.txt
