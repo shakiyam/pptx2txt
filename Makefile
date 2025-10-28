@@ -30,7 +30,8 @@ lint: ruff hadolint shellcheck shfmt ## Lint for all dependencies
 
 mypy: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/mypy.sh ghcr.io/shakiyam/pptx2txt_dev --ignore-missing-imports pptx2txt.py
+	@[[ -d .mypy_cache ]] || mkdir .mypy_cache
+	@./pptx2txt_dev mypy --ignore-missing-imports pptx2txt.py
 
 ruff: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
