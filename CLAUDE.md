@@ -57,6 +57,7 @@ make update_requirements_dev
 ```
 
 The project uses `uv` to manage dependencies. Dependencies are defined in `pyproject.toml`:
+
 - Production dependencies: `[project.dependencies]`
 - Development dependencies: `[project.optional-dependencies.dev]`
 
