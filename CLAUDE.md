@@ -29,7 +29,7 @@ make test
 make lint
 
 # Individual linters:
-make flake8    # Python linting
+make ruff      # Python linting
 make mypy      # Python type checking
 make shellcheck # Shell script linting
 make shfmt     # Shell script formatting
@@ -72,10 +72,10 @@ Edit `pyproject.toml` to add/remove dependencies, then run the make commands abo
 
 ## Development Workflow
 
-1. The project uses containerized tools for consistency - most development tools (flake8, mypy, shellcheck, etc.) run inside Docker containers
+1. The project uses containerized tools for consistency - most development tools (ruff, mypy, shellcheck, etc.) run inside Docker containers
 2. All shell scripts and tools follow strict error handling (`set -Eeu -o pipefail`)
 
 ## File Structure
 
-- **`tools/`**: Containerized development tool wrappers (flake8, mypy, shellcheck, shfmt, hadolint, uv)
+- **`tools/`**: Containerized development tool wrappers (ruff, mypy, shellcheck, shfmt, hadolint, uv)
 - **`test/`**: Test suite with sample files, test scripts, and expected outputs
