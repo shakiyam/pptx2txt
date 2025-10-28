@@ -12,5 +12,6 @@ shell: Any = Dispatch("WScript.Shell")
 sendto_dir: str = shell.SpecialFolders("SendTo")
 shortcut: Any = shell.CreateShortCut(os.path.join(sendto_dir, "pptx2txt.lnk"))
 shortcut.TargetPath = sys.executable
-shortcut.Arguments = os.path.join(os.path.dirname(__file__), "pptx2txt.py")
+script_path = os.path.join(os.path.dirname(__file__), "pptx2txt.py")
+shortcut.Arguments = f"-Xutf8 {script_path}"
 shortcut.Save()
