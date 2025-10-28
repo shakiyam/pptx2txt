@@ -1,0 +1,12 @@
+[project]
+name = "pptx2txt"
+version = "0.0.0"  # Formal value only; actual version managed in pptx2txt.py
+dependencies = [
+    "python-pptx",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "ptpython",
+]

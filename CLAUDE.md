@@ -56,7 +56,11 @@ make update_requirements
 make update_requirements_dev
 ```
 
-The project uses `uv` to manage dependencies. Edit `*.in` files to add/remove dependencies, then run the make commands above to regenerate `*.txt` files with pinned versions.
+The project uses `uv` to manage dependencies. Dependencies are defined in `pyproject.toml`:
+- Production dependencies: `[project.dependencies]`
+- Development dependencies: `[project.optional-dependencies.dev]`
+
+Edit `pyproject.toml` to add/remove dependencies, then run the make commands above to regenerate `*.txt` files with pinned versions.
 
 ## Architecture Notes
 
