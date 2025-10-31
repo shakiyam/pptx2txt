@@ -1,0 +1,8 @@
+#!/bin/bash
+set -Eeu -o pipefail
+
+if git diff --cached --name-only | grep -q "pptx2txt.py"; then
+  VERSION_DATE=$(date +%Y-%m-%d)
+  sed -i "s/^version = \".*\"/version = \"$VERSION_DATE\"/" pptx2txt.py
+  git add pptx2txt.py
+fi

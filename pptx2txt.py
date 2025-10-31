@@ -9,7 +9,7 @@ from pptx.shapes.base import BaseShape
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
 
-version = "2025-10-28"
+version = "2025-10-31"
 
 
 def log(message: str) -> None:

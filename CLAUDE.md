@@ -8,6 +8,15 @@ pptx2txt is a Python tool that converts PowerPoint `.pptx` files to text format.
 
 ## Key Commands
 
+### Initial Setup
+
+```bash
+# Install git hooks (run once after cloning)
+make hooks
+```
+
+This installs a pre-commit hook that automatically updates the version number in `pptx2txt.py` to the current date (YYYY-MM-DD format) whenever `pptx2txt.py` is modified and committed.
+
 ### Building and Testing
 
 ```bash
