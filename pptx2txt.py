@@ -1,6 +1,6 @@
-import os.path
 import sys
 from datetime import datetime
+from pathlib import Path
 
 from pptx import Presentation
 from pptx.exc import PackageNotFoundError
@@ -44,7 +44,8 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 for pptx_file in sys.argv[1:]:
-    if not os.path.exists(pptx_file):
+    pptx_path = Path(pptx_file)
+    if not pptx_path.exists():
         log(f"ERROR: File not found: {pptx_file}")
         sys.exit(1)
 
@@ -55,7 +56,7 @@ for pptx_file in sys.argv[1:]:
         log(f"ERROR: Invalid PPTX file: {pptx_file}")
         sys.exit(1)
     except Exception as e:
-        log(f"ERROR: Failed to open {pptx_file}: {str(e)}")
+        log(f"ERROR: Failed to open {pptx_file}: {e}")
         sys.exit(1)
 
     lines = []
@@ -64,15 +65,13 @@ for pptx_file in sys.argv[1:]:
         for shape in slide.shapes:
             lines += extract_lines_from_shape(shape)
 
-    base, _ = os.path.splitext(pptx_file)
-    text_file = f"{base}.txt"
+    text = "\n".join(lines) + "\n"
+    text_path = pptx_path.with_suffix(".txt")
     try:
-        with open(text_file, "w", encoding="utf-8") as f:
-            for line in lines:
-                print(line, file=f)
-        log(f"{text_file} was saved.")
+        text_path.write_text(text, encoding="utf-8")
+        log(f"{text_path} was saved.")
     except OSError as e:
-        log(f"ERROR: Cannot write to {text_file}: {str(e)}")
+        log(f"ERROR: Cannot write to {text_path}: {e}")
         sys.exit(1)
 
 log("All files were processed.")
