@@ -31,7 +31,11 @@ hooks: ## Install git hooks
 	@ln -sf ../../hooks/pre-commit .git/hooks/pre-commit
 	@echo "Git hooks installed"
 
-lint: ruff hadolint shellcheck shfmt ## Lint for all dependencies
+lint: ruff hadolint markdownlint shellcheck shfmt ## Lint for all dependencies
+
+markdownlint: ## Lint Markdown files
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/markdownlint.sh "*.md"
 
 mypy: ## Lint Python code
 	@echo -e "\033[36m$@\033[0m"
