@@ -6,7 +6,9 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if command -v docker &>/dev/null; then
+if command -v ruff &>/dev/null; then
+  ruff "$@"
+elif command -v docker &>/dev/null; then
   docker container run \
     --name "ruff_$(uuidgen | head -c8)" \
     --rm \
@@ -21,6 +23,6 @@ elif command -v podman &>/dev/null; then
     -v "$PWD":/io \
     ghcr.io/astral-sh/ruff:latest "$@"
 else
-  echo_error 'Neither docker nor podman is installed.'
+  echo_error 'ruff could not be executed.'
   exit 1
 fi
