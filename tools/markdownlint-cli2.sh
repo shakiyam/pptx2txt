@@ -6,7 +6,9 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-if command -v docker &>/dev/null; then
+if command -v markdownlint-cli2 &>/dev/null; then
+  markdownlint-cli2 "$@"
+elif command -v docker &>/dev/null; then
   docker container run \
     --name "markdownlint_$(uuidgen | head -c8)" \
     --rm \
@@ -23,6 +25,6 @@ elif command -v podman &>/dev/null; then
     -w /work \
     docker.io/davidanson/markdownlint-cli2:latest "$@"
 else
-  echo_error 'docker or podman is required to run markdownlint.'
+  echo_error 'markdownlint-cli2 could not be executed.'
   exit 1
 fi
