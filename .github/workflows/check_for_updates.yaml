@@ -7,13 +7,37 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 jobs:
+  check_for_action_updates:
+    name: Check for GitHub Actions updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Run check_for_action_updates.sh
+        run: |
+          ./tools/check_for_action_updates.sh actions/checkout
+          ./tools/check_for_action_updates.sh docker/build-push-action
+          ./tools/check_for_action_updates.sh docker/login-action
+          ./tools/check_for_action_updates.sh docker/setup-buildx-action
+          ./tools/check_for_action_updates.sh docker/setup-qemu-action
+  check_for_image_updates:
+    name: Check for image updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Run check_for_image_updates.sh
+        run: |
+          ./tools/check_for_image_updates.sh "$(awk '/^FROM /{print $2}' Dockerfile)" python:slim
+          ./tools/check_for_image_updates.sh "$(awk '/COPY --from=.*astral-sh\/uv/{sub(/.*--from=/,""); print $1}' Dockerfile)" ghcr.io/astral-sh/uv:latest
+          ./tools/check_for_image_updates.sh "$(awk -F'"' '/readonly UV_IMAGE=/{print $2}' tools/uv.sh)" ghcr.io/astral-sh/uv:python3.14-trixie-slim
   check_for_library_updates:
     name: Check for library updates
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run uv pip compile --upgrade
+        uses: actions/checkout@v6
+      - name: Update requirements_dev.txt
         run: ./tools/uv.sh pip compile --upgrade --strip-extras --extra dev --output-file requirements_dev.txt pyproject.toml
-      - name: Run check_for_file_updates.sh
+      - name: Check requirements_dev.txt
         run: ./tools/check_for_file_updates.sh requirements_dev.txt

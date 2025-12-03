@@ -6,7 +6,7 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 .PHONY: $(ALL_TARGETS)
 .DEFAULT_GOAL := help
 
-all: lint update_requirements_dev build_dev mypy update_requirements build test ## Lint, update requirements.txt, build, and test
+all: check_for_updates lint update_requirements_dev build_dev mypy update_requirements build test ## Check for updates, lint, update requirements.txt, build, and test
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
@@ -15,6 +15,22 @@ build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 build_dev: ## Build image 'shakiyam/pptx2txt_dev' from Dockerfile.dev
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/build.sh ghcr.io/shakiyam/pptx2txt_dev Dockerfile.dev
+
+check_for_action_updates: ## Check for GitHub Actions updates
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/check_for_action_updates.sh actions/checkout
+	@./tools/check_for_action_updates.sh docker/build-push-action
+	@./tools/check_for_action_updates.sh docker/login-action
+	@./tools/check_for_action_updates.sh docker/setup-buildx-action
+	@./tools/check_for_action_updates.sh docker/setup-qemu-action
+
+check_for_image_updates: ## Check for image updates
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/check_for_image_updates.sh "$(shell awk '/^FROM /{print $$2}' Dockerfile)" python:slim
+	@./tools/check_for_image_updates.sh "$(shell awk '/COPY --from=.*astral-sh\/uv/{sub(/.*--from=/,""); print $$1}' Dockerfile)" ghcr.io/astral-sh/uv:latest
+	@./tools/check_for_image_updates.sh "$(shell awk -F'"' '/readonly UV_IMAGE=/{print $$2}' tools/uv.sh)" ghcr.io/astral-sh/uv:python3.14-trixie-slim
+
+check_for_updates: check_for_action_updates check_for_image_updates ## Check for updates to all dependencies
 
 hadolint: ## Lint Dockerfile
 	@echo -e "\033[36m$@\033[0m"
