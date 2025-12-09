@@ -9,7 +9,7 @@ from pptx.shapes.base import BaseShape
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
 
-version = "2025-10-31"
+version = "2025-12-09"
 
 
 def log(message: str) -> None:
@@ -36,42 +36,47 @@ def extract_lines_from_shape(shape: BaseShape) -> list[str]:
     return shape_lines
 
 
-log(f"pptx2txt - version {version} by Shinichi Akiyama")
+def main() -> None:
+    log(f"pptx2txt - version {version} by Shinichi Akiyama")
 
-if len(sys.argv) < 2:
-    log("ERROR: No input files specified")
-    log("Usage: pptx2txt <file1.pptx> [file2.pptx] ...")
-    sys.exit(1)
-
-for pptx_file in sys.argv[1:]:
-    pptx_path = Path(pptx_file)
-    if not pptx_path.exists():
-        log(f"ERROR: File not found: {pptx_file}")
+    if len(sys.argv) < 2:
+        log("ERROR: No input files specified")
+        log("Usage: pptx2txt <file1.pptx> [file2.pptx] ...")
         sys.exit(1)
 
-    try:
-        presentation = Presentation(pptx_file)
-        log(f"{pptx_file} was opened.")
-    except PackageNotFoundError:
-        log(f"ERROR: Invalid PPTX file: {pptx_file}")
-        sys.exit(1)
-    except Exception as e:
-        log(f"ERROR: Failed to open {pptx_file}: {e}")
-        sys.exit(1)
+    for pptx_file in sys.argv[1:]:
+        pptx_path = Path(pptx_file)
+        if not pptx_path.exists():
+            log(f"ERROR: File not found: {pptx_file}")
+            sys.exit(1)
 
-    lines = []
-    for slide_index, slide in enumerate(presentation.slides):
-        lines.append(f"--- Slide {slide_index + 1} ---")
-        for shape in slide.shapes:
-            lines += extract_lines_from_shape(shape)
+        try:
+            presentation = Presentation(pptx_file)
+            log(f"{pptx_file} was opened.")
+        except PackageNotFoundError:
+            log(f"ERROR: Invalid PPTX file: {pptx_file}")
+            sys.exit(1)
+        except Exception as e:
+            log(f"ERROR: Failed to open {pptx_file}: {e}")
+            sys.exit(1)
 
-    text = "\n".join(lines) + "\n"
-    text_path = pptx_path.with_suffix(".txt")
-    try:
-        text_path.write_text(text, encoding="utf-8")
-        log(f"{text_path} was saved.")
-    except OSError as e:
-        log(f"ERROR: Cannot write to {text_path}: {e}")
-        sys.exit(1)
+        lines = []
+        for slide_index, slide in enumerate(presentation.slides):
+            lines.append(f"--- Slide {slide_index + 1} ---")
+            for shape in slide.shapes:
+                lines += extract_lines_from_shape(shape)
 
-log("All files were processed.")
+        text = "\n".join(lines) + "\n"
+        text_path = pptx_path.with_suffix(".txt")
+        try:
+            text_path.write_text(text, encoding="utf-8")
+            log(f"{text_path} was saved.")
+        except OSError as e:
+            log(f"ERROR: Cannot write to {text_path}: {e}")
+            sys.exit(1)
+
+    log("All files were processed.")
+
+
+if __name__ == "__main__":
+    main()
