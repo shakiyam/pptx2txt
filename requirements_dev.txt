@@ -4,7 +4,7 @@ appdirs==1.4.4
     # via ptpython
 jedi==0.19.2
     # via ptpython
-librt==0.7.7
+librt==0.7.8
     # via mypy
 lxml==6.0.2
     # via python-pptx
