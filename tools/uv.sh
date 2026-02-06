@@ -6,7 +6,7 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
 
-readonly UV_IMAGE="ghcr.io/astral-sh/uv:0.9-python3.14-trixie-slim"
+readonly UV_IMAGE="ghcr.io/astral-sh/uv:0.10-python3.14-trixie-slim"
 
 if command -v docker &>/dev/null; then
   docker container run \
