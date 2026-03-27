@@ -38,3 +38,6 @@ select = [
     "UP",     # pyupgrade (includes f-string)
     "W",      # pycodestyle warnings
 ]
+
+[tool.uv]
+exclude-newer = "3 days"
