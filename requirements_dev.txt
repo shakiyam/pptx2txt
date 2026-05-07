@@ -2,7 +2,7 @@
 #    uv pip compile --strip-extras --extra dev --output-file requirements_dev.txt pyproject.toml
 appdirs==1.4.4
     # via ptpython
-jedi==0.19.2
+jedi==0.20.0
     # via ptpython
 librt==0.9.0
     # via mypy
@@ -12,9 +12,9 @@ mypy==1.20.2
     # via pptx2txt (pyproject.toml)
 mypy-extensions==1.1.0
     # via mypy
-parso==0.8.6
+parso==0.8.7
     # via jedi
-pathspec==1.1.0
+pathspec==1.1.1
     # via mypy
 pillow==12.2.0
     # via python-pptx
@@ -30,7 +30,7 @@ typing-extensions==4.15.0
     # via
     #   mypy
     #   python-pptx
-wcwidth==0.6.0
+wcwidth==0.7.0
     # via prompt-toolkit
 xlsxwriter==3.2.9
     # via python-pptx
