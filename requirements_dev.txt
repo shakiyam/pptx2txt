@@ -6,11 +6,11 @@ ast-serialize==0.3.0
     # via mypy
 jedi==0.20.0
     # via ptpython
-librt==0.10.0
+librt==0.11.0
     # via mypy
 lxml==6.1.0
     # via python-pptx
-mypy==2.0.0
+mypy==2.1.0
     # via pptx2txt (pyproject.toml)
 mypy-extensions==1.1.0
     # via mypy
