@@ -8,7 +8,7 @@ jedi==0.20.0
     # via ptpython
 librt==0.11.0
     # via mypy
-lxml==6.1.0
+lxml==6.1.1
     # via python-pptx
 mypy==2.1.0
     # via pptx2txt (pyproject.toml)
