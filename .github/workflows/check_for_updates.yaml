@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Run check_for_action_updates.sh
         run: |
           ./tools/check_for_action_updates.sh actions/checkout
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Run check_for_image_updates.sh
         run: |
           ./tools/check_for_image_updates.sh "$(awk '/^FROM /{print $2}' Dockerfile)" python:slim
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Update requirements_dev.txt
         run: ./tools/uv.sh pip compile --upgrade --strip-extras --extra dev --output-file requirements_dev.txt pyproject.toml
       - name: Check requirements_dev.txt
