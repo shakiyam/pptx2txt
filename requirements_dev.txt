@@ -10,7 +10,7 @@ librt==0.13.0
     # via mypy
 lxml==6.1.1
     # via python-pptx
-mypy==2.2.0
+mypy==2.3.0
     # via pptx2txt (pyproject.toml)
 mypy-extensions==1.1.0
     # via mypy
