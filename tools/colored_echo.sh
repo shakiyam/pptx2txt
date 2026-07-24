@@ -1,5 +1,5 @@
 #!/bin/bash
-set -Eeu -o pipefail
+# Sourced library.
 
 echo_error() {
   if [[ -t 2 ]]; then

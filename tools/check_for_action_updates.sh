@@ -19,7 +19,11 @@ VERSIONS=$(
   grep -r "^\s*uses:.*${ACTION}@" "$WORKFLOW_DIR" --include="*.yml" --include="*.yaml" 2>/dev/null \
     | awk -F'@' '{print $2}' \
     | sort -u
-)
+) || true
+if [[ -z "$VERSIONS" ]]; then
+  echo_error "No usage of ${ACTION} found in ${WORKFLOW_DIR}."
+  exit 1
+fi
 
 for version in $VERSIONS; do
   "$SCRIPT_DIR/check_for_new_release.sh" "$ACTION" "$version" "$VERSION_PATTERN"

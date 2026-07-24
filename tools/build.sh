@@ -5,16 +5,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/container_engine.sh
 
-if command -v docker &>/dev/null; then
-  DOCKER=docker
-elif command -v podman &>/dev/null; then
-  DOCKER=podman
-else
-  echo_error 'Neither docker nor podman is installed.'
-  exit 1
-fi
-readonly DOCKER
+CONTAINER_ENGINE=$(detect_container_engine)
+readonly CONTAINER_ENGINE
 
 case "$#" in
   1)
@@ -33,13 +28,13 @@ esac
 readonly IMAGE_NAME
 readonly DOCKERFILE
 
-CURRENT_IMAGE="$($DOCKER image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
+CURRENT_IMAGE="$($CONTAINER_ENGINE image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
 readonly CURRENT_IMAGE
 SOURCE_COMMIT="$(git rev-parse HEAD || :)"
 readonly SOURCE_COMMIT
-$DOCKER image build --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" -f "$DOCKERFILE" -t "$IMAGE_NAME" .
-LATEST_IMAGE="$($DOCKER image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
+$CONTAINER_ENGINE image build --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" -f "$DOCKERFILE" -t "$IMAGE_NAME" .
+LATEST_IMAGE="$($CONTAINER_ENGINE image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
 readonly LATEST_IMAGE
 if [[ "$CURRENT_IMAGE" != "$LATEST_IMAGE" ]]; then
-  $DOCKER image tag "$IMAGE_NAME":latest "$IMAGE_NAME":"$(date +%Y%m%d%H%M%S)"
+  $CONTAINER_ENGINE image tag "$IMAGE_NAME":latest "$IMAGE_NAME":"$(date +%Y%m%d%H%M%S)"
 fi

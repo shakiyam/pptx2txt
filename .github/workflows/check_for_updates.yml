@@ -1,0 +1,40 @@
+name: Check for updates
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: check_for_updates-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check_for_action_updates:
+    name: Check for GitHub Actions updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Run make check_for_action_updates
+        run: make check_for_action_updates
+  check_for_image_updates:
+    name: Check for image updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Run make check_for_image_updates
+        run: make check_for_image_updates
+  check_for_library_updates:
+    name: Check for library updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Run make update_requirements_dev
+        run: make update_requirements_dev
+      - name: Run check_for_file_updates.sh
+        run: ./tools/check_for_file_updates.sh requirements_dev.txt
