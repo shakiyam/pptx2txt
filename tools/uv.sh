@@ -8,7 +8,7 @@ readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/container_engine.sh
 
-readonly UV_IMAGE="ghcr.io/astral-sh/uv:0.11-python3.14-trixie-slim"
+readonly UV_IMAGE="ghcr.io/astral-sh/uv:0.12-python3.14-trixie-slim"
 
 CONTAINER_ENGINE=$(detect_container_engine)
 readonly CONTAINER_ENGINE
