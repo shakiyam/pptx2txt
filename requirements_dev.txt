@@ -2,13 +2,13 @@
 #    uv pip compile --strip-extras --extra dev --output-file requirements_dev.txt pyproject.toml
 appdirs==1.4.4
     # via ptpython
-ast-serialize==0.8.0
+ast-serialize==0.9.0
     # via mypy
 jedi==0.20.0
     # via ptpython
 librt==0.15.0
     # via mypy
-lxml==6.1.2
+lxml==6.1.3
     # via python-pptx
 mypy==2.3.1
     # via pptx2txt (pyproject.toml)
