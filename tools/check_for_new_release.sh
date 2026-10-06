@@ -25,7 +25,11 @@ LATEST_RELEASE=$(
     | awk -F'/' '/^[Ll]ocation:/{print $NF}'
 )
 readonly LATEST_RELEASE
-if [[ "$(echo "$CURRENT_RELEASE" | grep -E -o "$PATTERN")" != "$(echo "$LATEST_RELEASE" | grep -E -o "$PATTERN")" ]]; then
+CURRENT_VERSION_PART=$(echo "$CURRENT_RELEASE" | grep -E -o "$PATTERN")
+readonly CURRENT_VERSION_PART
+LATEST_VERSION_PART=$(echo "$LATEST_RELEASE" | grep -E -o "$PATTERN")
+readonly LATEST_VERSION_PART
+if [[ "$CURRENT_VERSION_PART" != "$LATEST_VERSION_PART" ]]; then
   echo_warn "$REPOSITORY $CURRENT_RELEASE is not the latest release. The latest release is $LATEST_RELEASE."
   exit 2
 fi
