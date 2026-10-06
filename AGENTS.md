@@ -20,7 +20,7 @@ This installs a pre-commit hook that automatically updates the version number in
 ### Building and Testing
 
 ```bash
-# Run all checks (lint, build, test)
+# Run all checks (see `make help` for what it includes)
 make all
 
 # Run all tests (both basic and error scenarios)
@@ -29,6 +29,13 @@ make test
 # Run individual test suites:
 ./test/test_basic.sh        # Basic functionality tests
 ./test/test_error_scenarios.sh  # Error handling tests
+```
+
+### Formatting
+
+```bash
+# Run all formatting (formatters are listed in `make help`)
+make format
 ```
 
 ### Linting and Type Checking
@@ -41,7 +48,6 @@ make lint
 make ruff      # Python linting
 make mypy      # Python type checking
 make shellcheck # Shell script linting
-make shfmt     # Shell script formatting
 make hadolint  # Dockerfile linting
 ```
 
@@ -86,5 +92,5 @@ Edit `pyproject.toml` to add/remove dependencies, then run the make commands abo
 
 ## File Structure
 
-- **`tools/`**: Containerized development tool wrappers (ruff, mypy, shellcheck, shfmt, hadolint, uv)
+- **`tools/`**: Containerized development tool wrappers invoked by Makefile targets (see `make help`)
 - **`test/`**: Test suite with sample files, test scripts, and expected outputs

@@ -10,6 +10,18 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Run make format
+        run: make format
+      - name: Run check_for_file_updates.sh
+        run: ./tools/check_for_file_updates.sh
   hadolint:
     name: hadolint
     runs-on: ubuntu-latest
@@ -60,16 +72,6 @@ jobs:
           persist-credentials: false
       - name: Run make shellcheck
         run: make shellcheck
-  shfmt:
-    name: shfmt
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - name: Run make shfmt
-        run: make shfmt
   test:
     name: Test the application
     runs-on: ubuntu-latest
@@ -86,7 +88,7 @@ jobs:
       contents: read
       packages: write
     runs-on: ubuntu-latest
-    needs: [hadolint, markdownlint, mypy, ruff, shellcheck, shfmt, test]
+    needs: [format, hadolint, markdownlint, mypy, ruff, shellcheck, test]
     if: github.event_name == 'push'
     steps:
       - name: Checkout
