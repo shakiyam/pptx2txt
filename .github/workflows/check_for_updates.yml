@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Run make check_for_action_updates
         run: make check_for_action_updates
   check_for_image_updates:
@@ -26,6 +28,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Run make check_for_image_updates
         run: make check_for_image_updates
   check_for_library_updates:
@@ -34,6 +38,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Run make update_requirements_dev
         run: make update_requirements_dev
       - name: Run check_for_file_updates.sh
