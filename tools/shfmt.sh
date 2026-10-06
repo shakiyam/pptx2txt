@@ -24,7 +24,7 @@ else
     --name "shfmt_$(uuidgen | head -c8)" \
     --rm \
     "${ENGINE_OPTS[@]}" \
-    -v "$PWD":/work:ro \
+    -v "$PWD":/work \
     -w /work \
     docker.io/mvdan/shfmt:latest "$@"
 fi
