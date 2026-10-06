@@ -41,14 +41,11 @@ make format
 ### Linting and Type Checking
 
 ```bash
-# Run all linting
+# Run all linting (linters are listed in `make help`)
 make lint
 
-# Individual linters:
-make ruff      # Python linting
-make mypy      # Python type checking
-make shellcheck # Shell script linting
-make hadolint  # Dockerfile linting
+# Python type checking (not part of lint; builds the development image first)
+make mypy
 ```
 
 ### Building Docker Images

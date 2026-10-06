@@ -22,26 +22,18 @@ jobs:
         run: make format
       - name: Run check_for_file_updates.sh
         run: ./tools/check_for_file_updates.sh
-  hadolint:
-    name: hadolint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Run make hadolint
-        run: make hadolint
-  markdownlint:
-    name: markdownlint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - name: Run make markdownlint
-        run: make markdownlint
+      - name: Run make --keep-going lint
+        run: make --keep-going lint
+        env:
+          GH_TOKEN: ${{ github.token }}
   mypy:
     name: mypy
     runs-on: ubuntu-latest
@@ -52,26 +44,6 @@ jobs:
           persist-credentials: false
       - name: Run make mypy
         run: make mypy
-  ruff:
-    name: Ruff
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - name: Run make ruff
-        run: make ruff
-  shellcheck:
-    name: ShellCheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - name: Run make shellcheck
-        run: make shellcheck
   test:
     name: Test the application
     runs-on: ubuntu-latest
@@ -88,7 +60,7 @@ jobs:
       contents: read
       packages: write
     runs-on: ubuntu-latest
-    needs: [format, hadolint, markdownlint, mypy, ruff, shellcheck, test]
+    needs: [format, lint, mypy, test]
     if: github.event_name == 'push'
     steps:
       - name: Checkout

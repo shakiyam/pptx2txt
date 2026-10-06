@@ -8,6 +8,10 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 
 all: check_for_updates format lint update_requirements_dev mypy update_requirements test ## Check for updates, format, lint, update requirements, mypy, build, and test
 
+actionlint: ## Lint GitHub Actions workflow files
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/actionlint.sh
+
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/build.sh ghcr.io/shakiyam/pptx2txt Dockerfile
@@ -53,7 +57,7 @@ hooks: ## Install git hooks
 	@ln -sf ../../hooks/pre-commit .git/hooks/pre-commit
 	@echo "Git hooks installed"
 
-lint: hadolint markdownlint ruff shellcheck ## Run all linting
+lint: actionlint hadolint markdownlint ruff shellcheck zizmor ## Run all linting
 
 markdownlint: ## Lint Markdown files
 	@echo -e "\033[36m$@\033[0m"
@@ -96,4 +100,8 @@ update_requirements_dev: ## Update requirements_dev.txt
 
 yamlfmt: ## Format YAML files
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/yamlfmt.sh .github/workflows/*.yml
+	@./tools/yamlfmt.sh .github/zizmor.yml .github/workflows/*.yml
+
+zizmor: ## Lint GitHub Actions workflows for security issues
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/zizmor.sh .
