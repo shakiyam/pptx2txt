@@ -38,8 +38,6 @@ jobs:
         uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Run make build_dev
-        run: make build_dev
       - name: Run make mypy
         run: make mypy
   ruff:
@@ -80,8 +78,6 @@ jobs:
         uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Run make build
-        run: make build
       - name: Run make test
         run: make test
   build:

@@ -6,7 +6,7 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 .PHONY: $(ALL_TARGETS)
 .DEFAULT_GOAL := help
 
-all: check_for_updates lint update_requirements_dev build_dev mypy update_requirements build test ## Check for updates, lint, update requirements.txt, build, and test
+all: check_for_updates lint update_requirements_dev mypy update_requirements test ## Check for updates, lint, update requirements, mypy, build, and test
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
@@ -26,7 +26,7 @@ check_for_action_updates: ## Check for GitHub Actions updates
 
 check_for_image_updates: ## Check for image updates
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/check_for_image_updates.sh "$$(awk '/^FROM /{print $$2}' Dockerfile)" python:slim
+	@./tools/check_for_image_updates.sh "$$(awk '/^FROM /{print $$2; exit}' Dockerfile)" python:slim
 	@./tools/check_for_image_updates.sh "$$(awk '/COPY --from=.*astral-sh\/uv/{sub(/.*--from=/,""); print $$1}' Dockerfile)" ghcr.io/astral-sh/uv:latest
 	@./tools/check_for_image_updates.sh "$$(awk -F'"' '/readonly UV_IMAGE=/{print $$2}' tools/uv.sh)" ghcr.io/astral-sh/uv:python3.14-trixie-slim
 
@@ -53,7 +53,7 @@ markdownlint: ## Lint Markdown files
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/markdownlint-cli2.sh "*.md"
 
-mypy: ## Lint Python code
+mypy: build_dev ## Check Python types
 	@echo -e "\033[36m$@\033[0m"
 	@[[ -d .mypy_cache ]] || mkdir .mypy_cache
 	@./pptx2txt_dev mypy *.py
@@ -70,7 +70,7 @@ shfmt: ## Lint shell scripts
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/shfmt.sh -l -d -i 2 -ci -bn pptx2txt pptx2txt_dev test/*.sh tools/*.sh hooks/*
 
-test: ## Test pptx2txt
+test: build ## Test pptx2txt
 	@echo -e "\033[36m$@\033[0m"
 	@./test/test_basic.sh
 	@./test/clean.sh
