@@ -1,5 +1,4 @@
-#!/bin/bash
-# Sourced library.
+# shellcheck shell=bash
 
 echo_error() {
   if [[ -t 2 ]]; then
