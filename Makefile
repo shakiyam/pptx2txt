@@ -6,7 +6,7 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 .PHONY: $(ALL_TARGETS)
 .DEFAULT_GOAL := help
 
-all: check_for_updates format lint update_requirements_dev mypy update_requirements test ## Check for updates, format, lint, update requirements, mypy, build, and test
+all: check_for_updates format lint update_requirements_dev mypy update_requirements trivy test ## Check for updates, format, lint, update requirements, mypy, build, scan image, and test
 
 actionlint: ## Lint GitHub Actions workflow files
 	@echo -e "\033[36m$@\033[0m"
@@ -89,6 +89,10 @@ test: build ## Test pptx2txt
 	@./test/test_basic.sh
 	@./test/clean.sh
 	@./test/test_error_scenarios.sh
+
+trivy: build ## Scan Docker image for vulnerabilities
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/trivy.sh image --quiet --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 ghcr.io/shakiyam/pptx2txt | sed -n '/^Total:/,$$p'
 
 update_requirements: ## Update requirements.txt
 	@echo -e "\033[36m$@\033[0m"
