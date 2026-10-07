@@ -31,7 +31,7 @@ check_for_action_updates: ## Check for GitHub Actions updates
 check_for_image_updates: ## Check for image updates
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/check_for_image_updates.sh "$$(awk '/^FROM /{print $$2; exit}' Dockerfile)" python:slim
-	@./tools/check_for_image_updates.sh "$$(awk '/COPY --from=.*astral-sh\/uv/{sub(/.*--from=/,""); print $$1}' Dockerfile)" ghcr.io/astral-sh/uv:latest
+	@./tools/check_for_image_updates.sh "$$(awk 'match($$0, /ghcr\.io\/astral-sh\/uv:[^ ,]+/){print substr($$0, RSTART, RLENGTH); exit}' Dockerfile)" ghcr.io/astral-sh/uv:latest
 	@./tools/check_for_image_updates.sh "$$(awk -F'"' '/readonly UV_IMAGE=/{print $$2}' tools/uv.sh)" ghcr.io/astral-sh/uv:python3.14-trixie-slim
 
 check_for_updates: check_for_action_updates check_for_image_updates ## Check for updates to all dependencies
