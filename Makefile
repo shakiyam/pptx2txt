@@ -6,7 +6,7 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 .PHONY: $(ALL_TARGETS)
 .DEFAULT_GOAL := help
 
-all: check_for_updates format lint update_requirements_dev mypy update_requirements trivy test ## Check for updates, format, lint, update requirements, mypy, build, scan image, and test
+all: check_for_updates format lint update_requirements_dev mypy update_requirements dive trivy test ## Check for updates, format, lint, update requirements, mypy, build, scan image, and test
 
 actionlint: ## Lint GitHub Actions workflow files
 	@echo -e "\033[36m$@\033[0m"
@@ -35,6 +35,10 @@ check_for_image_updates: ## Check for image updates
 	@./tools/check_for_image_updates.sh "$$(awk -F'"' '/readonly UV_IMAGE=/{print $$2}' tools/uv.sh)" ghcr.io/astral-sh/uv:python3.14-trixie-slim
 
 check_for_updates: check_for_action_updates check_for_image_updates ## Check for updates to all dependencies
+
+dive: build ## Analyze Docker image layers
+	@echo -e "\033[36m$@\033[0m"
+	@./tools/dive.sh --ci ghcr.io/shakiyam/pptx2txt | awk '/Inefficient Files:/{skip=1} /Results:/{skip=0} !skip'
 
 dockerfmt: ## Format Dockerfile
 	@echo -e "\033[36m$@\033[0m"
