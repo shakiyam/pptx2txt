@@ -9,6 +9,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "mypy",
+    "pip-licenses",
     "ptpython",
 ]
 

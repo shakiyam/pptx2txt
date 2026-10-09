@@ -44,6 +44,16 @@ jobs:
           persist-credentials: false
       - name: Run make mypy
         run: make mypy
+  pip_licenses:
+    name: pip-licenses
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Run make pip_licenses
+        run: make pip_licenses
   test:
     name: Test the application
     runs-on: ubuntu-latest
@@ -70,7 +80,7 @@ jobs:
       contents: read
       packages: write
     runs-on: ubuntu-latest
-    needs: [format, lint, mypy, test, trivy]
+    needs: [format, lint, mypy, pip_licenses, test, trivy]
     if: github.event_name == 'push'
     steps:
       - name: Checkout
