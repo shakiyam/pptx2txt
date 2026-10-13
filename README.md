@@ -58,3 +58,5 @@ License
 -------
 
 [MIT License](https://opensource.org/licenses/mit)
+
+The MIT License applies only to the files in this repository. The image also contains other software under its own licenses.
