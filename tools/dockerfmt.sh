@@ -16,7 +16,7 @@ else
     echo_warn "Required dependency 'dockerfmt' is missing, download it."
     case $(uname -m) in
       x86_64)
-        ARCHITECTURE=amd64
+        ARCHITECTURE=amd64-musl
         ;;
       aarch64)
         ARCHITECTURE=arm64
