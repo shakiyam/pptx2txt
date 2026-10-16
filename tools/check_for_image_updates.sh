@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/github_release.sh
 
 case $(uname -m) in
   x86_64)
@@ -26,11 +28,7 @@ else
   REGCTL="$SCRIPT_DIR"/regctl
   if [[ ! -x "$REGCTL" ]]; then
     echo_warn "Required dependency 'regctl' is missing, download it."
-    LATEST=$(
-      curl -sSI https://github.com/regclient/regclient/releases/latest \
-        | tr -d '\r' \
-        | awk -F'/' '/^[Ll]ocation:/{print $NF}'
-    )
+    LATEST=$(get_github_latest_release regclient/regclient)
     readonly LATEST
     curl -fL# "https://github.com/regclient/regclient/releases/download/${LATEST}/regctl-linux-${ARCHITECTURE}" >"$REGCTL"
     chmod +x "$REGCTL"

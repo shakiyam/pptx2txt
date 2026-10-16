@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/github_release.sh
 
 if command -v dockerfmt &>/dev/null; then
   DOCKERFMT=dockerfmt
@@ -25,11 +27,7 @@ else
         ;;
     esac
     readonly ARCHITECTURE
-    LATEST=$(
-      curl -sSI https://github.com/reteps/dockerfmt/releases/latest \
-        | tr -d '\r' \
-        | awk -F'/' '/^[Ll]ocation:/{print $NF}'
-    )
+    LATEST=$(get_github_latest_release reteps/dockerfmt)
     readonly LATEST
     curl -fL# "https://github.com/reteps/dockerfmt/releases/download/${LATEST}/dockerfmt-${LATEST}-linux-${ARCHITECTURE}.tar.gz" \
       | tar xzf - -O dockerfmt \

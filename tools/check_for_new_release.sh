@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
 # shellcheck disable=SC1091
 . "$SCRIPT_DIR"/colored_echo.sh
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/github_release.sh
 
 if [[ $# -ne 2 && $# -ne 3 ]]; then
   echo_error "Usage: check_for_new_release.sh repository current_release [pattern]"
@@ -19,11 +21,7 @@ else
   PATTERN='.+'
 fi
 readonly PATTERN
-LATEST_RELEASE=$(
-  curl -sSI "https://github.com/$REPOSITORY/releases/latest" \
-    | tr -d '\r' \
-    | awk -F'/' '/^[Ll]ocation:/{print $NF}'
-)
+LATEST_RELEASE=$(get_github_latest_release "$REPOSITORY")
 readonly LATEST_RELEASE
 CURRENT_VERSION_PART=$(echo "$CURRENT_RELEASE" | grep -E -o "$PATTERN")
 readonly CURRENT_VERSION_PART
