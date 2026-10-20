@@ -1,8 +1,9 @@
 FROM python:3.15-slim-trixie
-COPY requirements_dev.txt /requirements_dev.txt
+WORKDIR /opt/pptx2txt
+COPY requirements_dev.txt .
 RUN --mount=from=ghcr.io/astral-sh/uv:0.13,source=/uv,target=/bin/uv \
-  uv pip install --system --no-cache-dir -r /requirements_dev.txt
-COPY pptx2txt.py /pptx2txt.py
+  uv pip install --system --no-cache-dir -r requirements_dev.txt
+COPY pptx2txt.py .
 WORKDIR /work
 ENV HOME=/tmp
 ARG SOURCE_COMMIT

@@ -30,5 +30,5 @@ $CONTAINER_ENGINE container run \
   -i \
   $TTY_FLAGS \
   -v "$PWD":/work \
-  -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
+  -v "$SCRIPT_DIR"/pptx2txt.py:/opt/pptx2txt/pptx2txt.py \
   ghcr.io/shakiyam/pptx2txt_dev "$@"
