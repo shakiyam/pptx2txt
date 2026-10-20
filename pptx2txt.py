@@ -10,7 +10,7 @@ from pptx.shapes.base import BaseShape
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
 
-version = "2026-03-24"
+__version__ = "2026-10-20"
 
 
 def log(message: str) -> None:
@@ -38,7 +38,7 @@ def extract_lines_from_shape(shape: BaseShape) -> list[str]:
 
 
 def main() -> None:
-    log(f"pptx2txt - version {version} by Shinichi Akiyama")
+    log(f"pptx2txt - version {__version__} by Shinichi Akiyama")
 
     if len(sys.argv) < 2:
         log("ERROR: No input files specified")
