@@ -85,7 +85,8 @@ Edit `pyproject.toml` to add/remove dependencies, then run the make commands abo
 ## Development Workflow
 
 1. The project uses containerized tools for consistency - most development tools (ruff, mypy, shellcheck, etc.) run inside Docker containers
-2. All shell scripts and tools follow strict error handling (`set -Eeu -o pipefail`)
+2. When running Python code for testing or verification, always use `./pptx2txt_dev python3` instead of the host's `python3` to ensure correct dependencies and environment
+3. All shell scripts and tools follow strict error handling (`set -Eeu -o pipefail`)
 
 ## File Structure
 
