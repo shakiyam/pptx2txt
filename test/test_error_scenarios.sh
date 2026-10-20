@@ -64,6 +64,14 @@ run_test() {
     echo "✓ No Python stack trace (user-friendly)"
   fi
 
+  # Check that line endings are not converted to CRLF
+  if grep -q $'\r' "$stderr_file"; then
+    echo "✗ Carriage return found in output"
+    exit_code_pass=false
+  else
+    echo "✓ LF line endings"
+  fi
+
   if [ "$exit_code_pass" = false ]; then
     FAILED_TESTS=$((FAILED_TESTS + 1))
   fi
