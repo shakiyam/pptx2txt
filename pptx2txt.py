@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+__version__ = "2026-10-20"
+
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -9,8 +11,6 @@ from pptx.shapes.autoshape import Shape
 from pptx.shapes.base import BaseShape
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.shapes.group import GroupShape
-
-__version__ = "2026-10-20"
 
 
 def log(message: str) -> None:
