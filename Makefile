@@ -6,11 +6,11 @@ ALL_TARGETS := $(shell grep -E -o ^[0-9A-Za-z_-]+: $(MAKEFILE_LIST) | sed 's/://
 .PHONY: $(ALL_TARGETS)
 .DEFAULT_GOAL := help
 
-all: check_for_updates format lint update_requirements_dev mypy pip_licenses update_requirements dive trivy test ## Check for updates, format, lint, update requirements, mypy, check licenses, build, scan image, and test
-
 actionlint: ## Lint GitHub Actions workflow files
 	@echo -e "\033[36m$@\033[0m"
 	@./tools/actionlint.sh
+
+all: check_for_updates format lint update_requirements_dev mypy pip_licenses update_requirements dive trivy test ## Check for updates, format, lint, update requirements, mypy, check licenses, build, scan image, and test
 
 build: ## Build image 'shakiyam/pptx2txt' from Dockerfile
 	@echo -e "\033[36m$@\033[0m"
