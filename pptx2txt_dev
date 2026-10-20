@@ -3,6 +3,10 @@ set -Eeu -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 readonly SCRIPT_DIR
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/tools/colored_echo.sh
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR"/tools/container_engine.sh
 
 if [[ -t 0 ]]; then
   TTY_FLAGS="-t"
@@ -10,24 +14,21 @@ else
   TTY_FLAGS=""
 fi
 
-if command -v docker &>/dev/null; then
-  docker container run \
-    --name "pptx2txt_dev_$(uuidgen | head -c8)" \
-    --rm \
-    -i \
-    $TTY_FLAGS \
-    -u "$(id -u):$(id -g)" \
-    -v "$PWD":/work \
-    -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
-    ghcr.io/shakiyam/pptx2txt_dev "$@"
+CONTAINER_ENGINE=$(detect_container_engine)
+readonly CONTAINER_ENGINE
+if [[ $CONTAINER_ENGINE == docker ]]; then
+  ENGINE_OPTS=(-u "$(id -u):$(id -g)")
 else
-  podman container run \
-    --name "pptx2txt_dev_$(uuidgen | head -c8)" \
-    --rm \
-    --security-opt label=disable \
-    -i \
-    $TTY_FLAGS \
-    -v "$PWD":/work \
-    -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
-    ghcr.io/shakiyam/pptx2txt_dev "$@"
+  ENGINE_OPTS=(--security-opt label=disable)
 fi
+readonly ENGINE_OPTS
+
+$CONTAINER_ENGINE container run \
+  --name "pptx2txt_dev_$(uuidgen | head -c8)" \
+  --rm \
+  "${ENGINE_OPTS[@]}" \
+  -i \
+  $TTY_FLAGS \
+  -v "$PWD":/work \
+  -v "$SCRIPT_DIR"/pptx2txt.py:/pptx2txt.py \
+  ghcr.io/shakiyam/pptx2txt_dev "$@"
