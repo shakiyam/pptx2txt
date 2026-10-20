@@ -1,4 +1,5 @@
 .mypy_cache
+.ruff_cache
 regctl
 test/sample*.txt
 dockerfmt
