@@ -78,7 +78,7 @@ Edit `pyproject.toml` to add/remove dependencies, then run the make commands abo
 ## Architecture Notes
 
 - **Main Script**: `pptx2txt.py` - Core conversion logic using python-pptx library
-- **Shell Wrappers**: `pptx2txt` (production) and `pptx2txt_dev` (development) - Convenient wrapper scripts for running the tool via Docker
+- **Shell Wrappers**: `pptx2txt` (production) and `pptx2txt_dev` (development) - Convenient wrapper scripts for running the tool via Docker; `pptx2txt` is self-contained so it can be copied and used on its own, and must not source `tools/`
 - **Docker Support**: Two Dockerfiles - production (`Dockerfile`) and development (`Dockerfile.dev`)
 - **Testing**: Simple diff-based testing in `test/` directory comparing outputs against expected results
 
