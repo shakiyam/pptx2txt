@@ -31,21 +31,20 @@ make test
 ./test/test_error_scenarios.sh  # Error handling tests
 ```
 
-### Formatting
+### Formatting, Linting, and Type Checking
 
 ```bash
-# Run all formatting (formatters are listed in `make help`)
+# Run all formatters (rewrites files in place)
 make format
-```
 
-### Linting and Type Checking
-
-```bash
-# Run all linting (linters are listed in `make help`)
+# Run all linters
 make lint
 
-# Python type checking (not part of lint; builds the development image first)
+# Run Python type checking
 make mypy
+
+# List all targets, including individual formatters and linters
+make help
 ```
 
 ### Building Docker Images
@@ -68,12 +67,7 @@ make update_requirements
 make update_requirements_dev
 ```
 
-The project uses `uv` to manage dependencies. Dependencies are defined in `pyproject.toml`:
-
-- Production dependencies: `[project.dependencies]`
-- Development dependencies: `[project.optional-dependencies.dev]`
-
-Edit `pyproject.toml` to add/remove dependencies, then run the make commands above to regenerate `*.txt` files with pinned versions.
+The project uses `uv` to manage dependencies. Edit `pyproject.toml` to add/remove dependencies, then run the make commands above to regenerate `*.txt` files with pinned versions.
 
 ## Architecture Notes
 
