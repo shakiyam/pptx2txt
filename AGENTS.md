@@ -74,7 +74,7 @@ The project uses `uv` to manage dependencies. Edit `pyproject.toml` to add/remov
 - **Main Script**: `pptx2txt.py` - Core conversion logic using python-pptx library
 - **Shell Wrappers**: `pptx2txt` (production) and `pptx2txt_dev` (development) - Convenient wrapper scripts for running the tool via Docker; `pptx2txt` is self-contained so it can be copied and used on its own, and must not source `tools/`
 - **Docker Support**: Two Dockerfiles - production (`Dockerfile`) and development (`Dockerfile.dev`)
-- **Testing**: Simple diff-based testing in `test/` directory comparing outputs against expected results
+- **Testing**: Shell scripts in `test/` run the production image through the `pptx2txt` wrapper; `test_basic.sh` compares the converted text with `test/expected/`, and `test_error_scenarios.sh` checks exit codes and messages of error cases. `test_basic.bat` runs the basic test on Windows with the host Python
 
 ## Development Workflow
 
