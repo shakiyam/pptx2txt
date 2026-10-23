@@ -11,3 +11,13 @@ detect_container_engine() {
     return 1
   fi
 }
+
+healthcheck_status_query() {
+  local engine
+  engine=$(detect_container_engine) || return
+  if [[ $engine == docker ]]; then
+    echo '{{.State.Health.Status}}'
+  else
+    echo '{{.State.Healthcheck.Status}}'
+  fi
+}
