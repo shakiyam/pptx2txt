@@ -36,9 +36,9 @@ typing-extensions==4.16.0
     # via
     #   mypy
     #   python-pptx
-wcwidth==0.9.2
+wcwidth==0.9.3
     # via
     #   prettytable
     #   prompt-toolkit
-xlsxwriter==3.2.9
+xlsxwriter==3.3.0
     # via python-pptx
