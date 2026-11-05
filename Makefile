@@ -118,4 +118,4 @@ yamlfmt: ## Format YAML files
 
 zizmor: ## Lint GitHub Actions workflows for security issues
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/zizmor.sh .
+	@./tools/zizmor.sh --strict-collection --persona=auditor .
