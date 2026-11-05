@@ -38,7 +38,7 @@ check_for_updates: check_for_action_updates check_for_image_updates ## Check for
 
 dive: build ## Analyze Docker image layers
 	@echo -e "\033[36m$@\033[0m"
-	@./tools/dive.sh --ci ghcr.io/shakiyam/pptx2txt | awk '/Inefficient Files:/{skip=1} /Results:/{skip=0} !skip'
+	@./tools/dive.sh --ci ghcr.io/shakiyam/pptx2txt:latest | awk '/Inefficient Files:/{skip=1} /Results:/{skip=0} !skip'
 
 dockerfmt: ## Format Dockerfile
 	@echo -e "\033[36m$@\033[0m"
