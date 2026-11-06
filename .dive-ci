@@ -1,6 +1,0 @@
-# TODO: Remove this file to restore dive's default thresholds once base image includes apt and libapt-pkg7.0 >= 3.0.4 (CVE-2026-109518)
-# Temporarily raises highestUserWastedPercent from the default 0.1 to 0.25 because the apt upgrade wastes ~11 MB (~17 MB in total)
-rules:
-  lowestEfficiency: 0.9
-  highestWastedBytes: disabled
-  highestUserWastedPercent: 0.25
