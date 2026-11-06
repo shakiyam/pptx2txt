@@ -28,11 +28,17 @@ esac
 readonly IMAGE_NAME
 readonly DOCKERFILE
 
+ENGINE_OPTS=()
+if [[ $CONTAINER_ENGINE == docker ]]; then
+  ENGINE_OPTS=(--provenance=false)
+fi
+readonly ENGINE_OPTS
+
 CURRENT_IMAGE="$($CONTAINER_ENGINE image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
 readonly CURRENT_IMAGE
 SOURCE_COMMIT="$(git rev-parse HEAD || :)"
 readonly SOURCE_COMMIT
-$CONTAINER_ENGINE image build --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" -f "$DOCKERFILE" -t "$IMAGE_NAME" .
+$CONTAINER_ENGINE image build "${ENGINE_OPTS[@]}" --build-arg SOURCE_COMMIT="$SOURCE_COMMIT" -f "$DOCKERFILE" -t "$IMAGE_NAME" .
 LATEST_IMAGE="$($CONTAINER_ENGINE image ls --quiet --no-trunc "$IMAGE_NAME":latest)"
 readonly LATEST_IMAGE
 if [[ "$CURRENT_IMAGE" != "$LATEST_IMAGE" ]]; then
