@@ -28,9 +28,10 @@ esac
 readonly IMAGE_NAME
 readonly DOCKERFILE
 
-ENGINE_OPTS=()
 if [[ $CONTAINER_ENGINE == docker ]]; then
-  ENGINE_OPTS=(--provenance=false)
+  ENGINE_OPTS=(--provenance=false --pull)
+else
+  ENGINE_OPTS=(--pull=newer)
 fi
 readonly ENGINE_OPTS
 
