@@ -7,5 +7,5 @@ COPY pptx2txt.py .
 WORKDIR /work
 ENV HOME=/tmp
 ARG SOURCE_COMMIT
-ENV SOURCE_COMMIT=$SOURCE_COMMIT
+LABEL org.opencontainers.image.revision=$SOURCE_COMMIT
 CMD ["/bin/bash"]
