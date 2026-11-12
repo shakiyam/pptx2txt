@@ -57,6 +57,8 @@ make build
 make build_dev
 ```
 
+When `make trivy` reports vulnerabilities whose fixed versions the distribution already ships, run `NO_CACHE=1 make trivy` to rebuild the cached layers that still hold the old packages.
+
 ### Updating Dependencies
 
 ```bash

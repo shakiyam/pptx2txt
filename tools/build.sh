@@ -21,7 +21,7 @@ case "$#" in
     DOCKERFILE="$2"
     ;;
   *)
-    echo_error 'Usage: build.sh image_name [Dockerfile]'
+    echo_error 'Usage: [NO_CACHE=1] build.sh image_name [Dockerfile]'
     exit 1
     ;;
 esac
@@ -32,6 +32,10 @@ if [[ $CONTAINER_ENGINE == docker ]]; then
   ENGINE_OPTS=(--provenance=false --pull)
 else
   ENGINE_OPTS=(--pull=newer)
+fi
+# --pull refreshes only the base image, so cached layers keep packages that have since received security updates
+if [[ -n ${NO_CACHE:-} ]]; then
+  ENGINE_OPTS+=(--no-cache)
 fi
 readonly ENGINE_OPTS
 
