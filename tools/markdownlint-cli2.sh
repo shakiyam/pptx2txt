@@ -16,7 +16,9 @@ else
   if [[ $CONTAINER_ENGINE == docker ]]; then
     ENGINE_OPTS=(-u "$(id -u):$(id -g)")
   else
-    ENGINE_OPTS=(--security-opt label=disable)
+    # The image runs as a non-root USER, which rootless Podman maps to a subuid that
+    # cannot read the caller's private files; keep-id plus -u runs as the caller instead.
+    ENGINE_OPTS=(--security-opt label=disable --userns=keep-id -u "$(id -u):$(id -g)")
   fi
   readonly ENGINE_OPTS
 
