@@ -18,4 +18,6 @@ COPY pptx2txt.py .
 WORKDIR /work
 ARG SOURCE_COMMIT
 LABEL org.opencontainers.image.revision=$SOURCE_COMMIT
+# nobody:nogroup
+USER 65534:65534
 ENTRYPOINT ["python3", "/opt/pptx2txt/pptx2txt.py"]
