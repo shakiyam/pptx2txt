@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Run make update_requirements_dev
-        run: make update_requirements_dev
+      - name: Run make update_uv_lock
+        run: make update_uv_lock
       - name: Run check_for_file_updates.sh
-        run: ./tools/check_for_file_updates.sh requirements_dev.txt
+        run: ./tools/check_for_file_updates.sh uv.lock

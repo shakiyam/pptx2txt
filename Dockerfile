@@ -5,10 +5,13 @@ RUN apt-get update \
   && apt-get -y --no-install-recommends --only-upgrade install zlib1g \
   && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/pptx2txt
-COPY requirements.txt .
+# Sync into the system Python so the ENTRYPOINT's python3 imports the dependencies without a venv
+ENV UV_PROJECT_ENVIRONMENT=/usr/local
+COPY pyproject.toml uv.lock ./
 # pip comes from the base image and is unused at runtime; removing it clears trivy findings in its bundled libraries
+# (uv sync leaves it in place even though uv.lock does not list it)
 RUN --mount=from=ghcr.io/astral-sh/uv:0.13,source=/uv,target=/bin/uv \
-  uv pip install --system --no-cache-dir -r requirements.txt \
+  uv sync --locked --no-cache \
   && uv pip uninstall --system pip
 COPY pptx2txt.py .
 WORKDIR /work

@@ -62,14 +62,11 @@ When `make trivy` reports vulnerabilities whose fixed versions the distribution 
 ### Updating Dependencies
 
 ```bash
-# Update production requirements
-make update_requirements
-
-# Update development requirements
-make update_requirements_dev
+# Update uv.lock and export requirements.txt from it
+make update_uv_lock
 ```
 
-The project uses `uv` to manage dependencies. Edit `pyproject.toml` to add/remove dependencies, then run the make commands above to regenerate `*.txt` files with pinned versions.
+The project uses `uv` to manage dependencies. Edit `pyproject.toml` to add/remove dependencies, then run the make command above to regenerate `uv.lock` and `requirements.txt` with pinned versions.
 
 ## Architecture Notes
 
@@ -88,3 +85,11 @@ The project uses `uv` to manage dependencies. Edit `pyproject.toml` to add/remov
 
 - **`tools/`**: Containerized development tool wrappers invoked by Makefile targets (see `make help`)
 - **`test/`**: Test suite with sample files, test scripts, and expected outputs
+
+## Decisions
+
+- **Dependencies pinned in `uv.lock`**: The container images install from `uv.lock`, and local installs without containers (see README) install from `requirements.txt` exported from it, so every environment runs the tested versions. Runtime and development dependencies are resolved together, so a development tool may constrain a runtime version; this is accepted as keeping the tested and shipped versions identical
+- **Exported `requirements.txt` committed**: Windows users install with pip through `setup.bat` instead of uv, because the SendTo shortcut records the interpreter path and a system Python is less likely to disappear from under it than the uv-managed Python behind a project venv; the exported file gives them the pinned versions without uv
+- **Development dependencies as an extra**: `dev` stays in `[project.optional-dependencies]` rather than `[dependency-groups]`, because `uv sync` installs the `dev` group by default but not extras, so a plain `uv sync` installs only what the application needs
+- **No platform restriction in `uv.lock`**: `[tool.uv] environments` is left unset because narrowing it drops only wheels, not packages, while making installs fail on unlisted platforms; revisit if the daily update check keeps reporting lock changes caused only by platforms nobody uses
+- **System Python in images**: The Dockerfiles run `uv sync` with `UV_PROJECT_ENVIRONMENT=/usr/local` instead of creating a venv, so the installed commands stay on the default `PATH`

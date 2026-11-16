@@ -1,1 +1,2 @@
-py -m pip install --upgrade python-pptx pywin32
+py -m pip install -r "%~dp0requirements.txt"
+py -m pip install --upgrade pywin32
