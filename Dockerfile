@@ -1,9 +1,4 @@
 FROM python:3.15-slim-trixie
-# TODO: Remove package upgrades once base image includes zlib1g >= 1:1.3.dfsg+really1.3.1-1+deb13u1 (CVE-2026-76844, CVE-2026-85091)
-# hadolint ignore=DL3008
-RUN apt-get update \
-  && apt-get -y --no-install-recommends --only-upgrade install zlib1g \
-  && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/pptx2txt
 # Sync into the system Python so the ENTRYPOINT's python3 imports the dependencies without a venv
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
