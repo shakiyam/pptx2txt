@@ -220,7 +220,7 @@ typing-extensions==4.16.0 \
     --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8 \
     --hash=sha256:dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5
     # via python-pptx
-xlsxwriter==3.3.3 \
-    --hash=sha256:2b83c5e184d872275e87718ebc88688acc258a50fc84dcad965b3d10be6e345f \
-    --hash=sha256:ad3743bd5f96019ee75aae19a51e9c26faf03f218670b934dac1159692d0d5e3
+xlsxwriter==3.3.4 \
+    --hash=sha256:3512f4210622d4040e0f2882e2caf7263a3fd8be876704304314f0e275377fea \
+    --hash=sha256:da62fecb24fdd0f003c874c86109b9e1245ae89533052745ab85a085eb2b04d7
     # via python-pptx
